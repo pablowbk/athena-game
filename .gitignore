@@ -12,11 +12,8 @@
 
 # misc
 .DS_Store
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env*
+!.env.example
 
 # logs
 npm-debug.log*
@@ -27,5 +24,4 @@ yarn-error.log*
 .idea/
 .vscode/
 *.swp
-*.swo 
-node_modules
+*.swo
