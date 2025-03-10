@@ -22,7 +22,6 @@ const GameScene: React.FC<GameSceneProps> = ({
   scene,
   character,
   sceneText,
-  visitedScenesCount,
   inventory,
   onChoice,
   playerName,
