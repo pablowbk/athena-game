@@ -1,0 +1,72 @@
+.inventoryDisplay {
+  background-color: var(--bg-darker);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  margin-top: 1rem;
+  border-radius: 4px;
+  position: relative;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.header h3 {
+  margin: 0;
+  color: var(--text-color);
+  text-shadow: 0 0 5px var(--glow-color);
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  line-height: 1;
+}
+
+.closeButton:hover {
+  color: var(--text-color);
+  text-shadow: 0 0 5px var(--glow-color);
+}
+
+.emptyMessage {
+  color: var(--text-muted);
+  font-style: italic;
+  margin: 0;
+}
+
+.itemList {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+.item {
+  color: var(--text-color);
+  padding: 0.4rem 0;
+  cursor: help;
+  text-shadow: 0 0 3px var(--glow-color);
+  font-weight: bold;
+  display: list-item;
+  font-size: 1.1rem;
+}
+
+.item:hover {
+  color: var(--text-highlight);
+  text-shadow: 0 0 5px var(--glow-color);
+}
+
+.hint {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 1rem 0 0;
+  font-style: italic;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+}

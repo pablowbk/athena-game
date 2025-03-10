@@ -1,0 +1,55 @@
+.game-over {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  background-color: var(--bg-darker);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.game-over__title {
+  color: var(--error-color);
+  font-weight: bold;
+  font-size: 2rem;
+  margin: 0;
+  text-shadow: 0 0 5px rgba(255, 51, 51, 0.5);
+  text-align: center;
+}
+
+.game-over__message {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 600px;
+  text-align: center;
+  text-shadow: 0 0 5px var(--glow-color);
+}
+
+.game-over__button {
+  padding: 1rem;
+  background-color: var(--bg-darker);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  text-align: center;
+  text-shadow: 0 0 5px var(--glow-color);
+  outline: none;
+  min-width: 200px;
+}
+
+.game-over__button:hover,
+.game-over__button:focus {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+  transform: translateX(5px);
+}
+
+.game-over__button:focus-visible {
+  border-color: var(--border-color);
+  box-shadow: 0 0 0 2px var(--bg-darker), 0 0 0 4px var(--border-color);
+  outline: none;
+}

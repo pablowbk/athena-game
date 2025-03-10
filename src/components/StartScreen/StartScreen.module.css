@@ -1,0 +1,137 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    min-height: 50vh;
+    gap: 1.5rem;
+  }
+}
+
+.title {
+  font-size: 3rem;
+  color: var(--text-color);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-shadow: 0 0 10px var(--glow-color);
+  animation: flicker 0.5s infinite;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.5rem;
+    letter-spacing: 3px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 2rem;
+    letter-spacing: 2px;
+  }
+}
+
+.description {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  line-height: 1.6;
+  margin: 0 auto;
+  text-shadow: 0 0 5px var(--shadow-color);
+  text-wrap-style: pretty;
+}
+
+@media (max-width: 768px) {
+  .description {
+    font-size: 1rem;
+    line-height: 1.4;
+    max-width: 90%;
+  }
+}
+
+.button {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 3rem;
+  font-size: 1.5rem;
+  background-color: var(--bg-darker);
+  border: 2px solid var(--border-color);
+  color: var(--text-color);
+  cursor: pointer;
+  font-family: inherit;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 5px var(--glow-color);
+  position: relative;
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .button {
+    padding: 0.8rem 2rem;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 480px) {
+  .button {
+    padding: 0.7rem 1.5rem;
+    font-size: 1.1rem;
+  }
+}
+
+@keyframes iconFlicker {
+  0% {
+    opacity: 0.1;
+  }
+
+  25% {
+    opacity: 0.9;
+  }
+
+  50% {
+    opacity: 0.2;
+  }
+
+  75% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.1;
+  }
+}
+
+.button::before {
+  content: '>';
+  opacity: 0.1;
+  animation: iconFlicker 2s infinite;
+}
+
+.button:hover::before,
+.button:focus::before {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.button:hover,
+.button:focus {
+  background-color: var(--bg-color);
+  box-shadow: 0 0 20px var(--shadow-color);
+  transform: translateY(-2px);
+}
+
+.button:focus-visible {
+  box-shadow: 0 0 0 2px var(--bg-darker), 0 0 0 4px var(--border-color);
+  outline: none;
+}

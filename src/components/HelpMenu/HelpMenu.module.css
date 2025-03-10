@@ -1,0 +1,30 @@
+.helpBox {
+  background-color: var(--bg-darker);
+  border: 1px solid var(--border-color);
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 4px;
+}
+
+.helpBox h3 {
+  margin-top: 0;
+  color: var(--text-color);
+  text-shadow: 0 0 5px var(--glow-color);
+}
+
+.helpBox ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.helpBox li {
+  margin: 0.5rem 0;
+  color: var(--text-muted);
+  text-shadow: 0 0 3px var(--shadow-color);
+}
+
+.helpBox li:hover {
+  color: var(--text-color);
+  text-shadow: 0 0 5px var(--glow-color);
+}

@@ -1,0 +1,388 @@
+{
+  "characters": {
+    "wizard": {
+      "type": "wizard",
+      "description": "A master of arcane arts, skilled in solving mysteries with magic.",
+      "specialAbility": "Can detect magical auras and cast spells",
+      "imagePath": "/wizard"
+    },
+    "hero": {
+      "type": "hero",
+      "description": "A brave warrior, strong in combat and natural leadership.",
+      "specialAbility": "Can overcome physical challenges and inspire others",
+      "imagePath": "/hero"
+    },
+    "thief": {
+      "type": "thief",
+      "description": "A cunning rogue, expert in stealth and finding hidden paths.",
+      "specialAbility": "Can pick locks and find secret passages",
+      "imagePath": "/thief"
+    }
+  },
+  "scenes": {
+    "start": {
+      "text": "Before your adventure begins, you must choose your path. Who are you?",
+      "choices": [
+        {
+          "text": "wizard.choice",
+          "nextScene": "character_chosen"
+        },
+        {
+          "text": "hero.choice",
+          "nextScene": "character_chosen"
+        },
+        {
+          "text": "thief.choice",
+          "nextScene": "character_chosen"
+        }
+      ]
+    },
+    "character_chosen": {
+      "type": "text_input",
+      "text": "scenes.character_chosen.base",
+      "prompt": "prompt.what_to_do",
+      "characterSpecificText": {
+        "wizard": "scenes.character_chosen.wizard",
+        "hero": "scenes.character_chosen.hero",
+        "thief": "scenes.character_chosen.thief"
+      },
+      "keywords": {
+        "examine scroll": "scroll_examined",
+        "look at scroll": "scroll_examined",
+        "inspect scroll": "scroll_examined",
+        "study scroll": "scroll_examined",
+        "check scroll": "scroll_examined",
+        "examinar pergamino": "scroll_examined",
+        "mirar pergamino": "scroll_examined",
+        "inspeccionar pergamino": "scroll_examined",
+        "estudiar pergamino": "scroll_examined",
+        "revisar pergamino": "scroll_examined",
+        "use scroll": "scroll_examined",
+        "usar pergamino": "scroll_examined",
+        "take scroll": "scroll_taken",
+        "pick up scroll": "scroll_taken",
+        "grab scroll": "scroll_taken",
+        "get scroll": "scroll_taken",
+        "collect scroll": "scroll_taken",
+        "tomar pergamino": "scroll_taken",
+        "recoger pergamino": "scroll_taken",
+        "agarrar pergamino": "scroll_taken",
+        "coger pergamino": "scroll_taken",
+        "obtener pergamino": "scroll_taken",
+        "use door": "door_locked",
+        "interact with door": "door_locked",
+        "activate door": "door_locked",
+        "operate door": "door_locked",
+        "usar puerta": "door_locked",
+        "utilizar puerta": "door_locked",
+        "activar puerta": "door_locked",
+        "operar puerta": "door_locked"
+      }
+    },
+    "scroll_examined": {
+      "type": "text_input",
+      "text": "scenes.scroll_examined.text",
+      "prompt": "prompt.what_to_do",
+      "keywords": {
+        "door": "door_locked",
+        "open door": "door_locked",
+        "take scroll": "scroll_taken",
+        "pick up scroll": "scroll_taken",
+        "grab scroll": "scroll_taken",
+        "use scroll": "scroll_taken",
+        "usar pergamino": "scroll_taken",
+        "abrir puerta": "door_locked",
+        "tomar pergamino": "scroll_taken",
+        "coger pergamino": "scroll_taken",
+        "agarrar pergamino": "scroll_taken"
+      }
+    },
+    "scroll_taken": {
+      "type": "text_input",
+      "text": "scenes.scroll_taken.text",
+      "prompt": "prompt.what_to_do",
+      "keywords": {
+        "door": "door_locked",
+        "open door": "door_locked",
+        "abrir puerta": "door_locked"
+      }
+    },
+    "door_locked": {
+      "text": "scenes.door_locked.text",
+      "choices": [
+        {
+          "text": "choices.step_through",
+          "nextScene": "next_chamber"
+        }
+      ]
+    },
+    "next_chamber": {
+      "text": "scenes.next_chamber.base",
+      "characterSpecificText": {
+        "wizard": "scenes.next_chamber.wizard",
+        "hero": "scenes.next_chamber.hero",
+        "thief": "scenes.next_chamber.thief"
+      },
+      "choices": [
+        {
+          "text": "choices.examine_surroundings",
+          "nextScene": "athena_appears"
+        }
+      ]
+    },
+    "athena_appears": {
+      "text": "scenes.athena_appears.text",
+      "choices": [
+        {
+          "text": "choices.help_hercules",
+          "nextScene": "hercules_quest"
+        },
+        {
+          "text": "choices.help_dedalo",
+          "nextScene": "dedalo_quest"
+        },
+        {
+          "text": "choices.help_persephone",
+          "nextScene": "persephone_quest"
+        }
+      ]
+    },
+    "hercules_quest": {
+      "type": "text_input",
+      "text": "scenes.hercules_quest.base",
+      "prompt": "prompt.hydra_quest",
+      "characterSpecificText": {
+        "wizard": "scenes.hercules_quest.wizard",
+        "hero": "scenes.hercules_quest.hero",
+        "thief": "scenes.hercules_quest.thief"
+      },
+      "keywords": {
+        "examine hydra": "hydra_study",
+        "look at hydra": "hydra_study",
+        "inspect hydra": "hydra_study",
+        "study hydra": "hydra_study",
+        "observe hydra": "hydra_study",
+        "examinar hidra": "hydra_study",
+        "mirar hidra": "hydra_study",
+        "inspeccionar hidra": "hydra_study",
+        "estudiar hidra": "hydra_study",
+        "observar hidra": "hydra_study",
+        "attack hydra": "hydra_defeat_first",
+        "fight hydra": "hydra_defeat_first",
+        "strike hydra": "hydra_defeat_first",
+        "hit hydra": "hydra_defeat_first",
+        "battle hydra": "hydra_defeat_first",
+        "atacar hidra": "hydra_defeat_first",
+        "luchar hidra": "hydra_defeat_first",
+        "golpear hidra": "hydra_defeat_first",
+        "combatir hidra": "hydra_defeat_first",
+        "pelear hidra": "hydra_defeat_first"
+      }
+    },
+    "hydra_defeat_first": {
+      "text": "scenes.hydra_defeat.first_try",
+      "type": "text_input",
+      "prompt": "prompt.what_to_do",
+      "keywords": {
+        "examine hydra": "hydra_study",
+        "look at hydra": "hydra_study",
+        "inspect hydra": "hydra_study",
+        "study hydra": "hydra_study",
+        "examinar hidra": "hydra_study",
+        "mirar hidra": "hydra_study",
+        "attack hydra": "hydra_defeat_second",
+        "fight hydra": "hydra_defeat_second",
+        "strike hydra": "hydra_defeat_second",
+        "atacar hidra": "hydra_defeat_second",
+        "luchar hidra": "hydra_defeat_second",
+        "golpear hidra": "hydra_defeat_second"
+      }
+    },
+    "hydra_defeat_second": {
+      "text": "scenes.hydra_defeat.second_try",
+      "type": "text_input",
+      "prompt": "prompt.what_to_do",
+      "keywords": {
+        "examine hydra": "hydra_study",
+        "look at hydra": "hydra_study",
+        "inspect hydra": "hydra_study",
+        "study hydra": "hydra_study",
+        "examinar hidra": "hydra_study",
+        "mirar hidra": "hydra_study",
+        "attack hydra": "hydra_defeat_final",
+        "fight hydra": "hydra_defeat_final",
+        "strike hydra": "hydra_defeat_final",
+        "atacar hidra": "hydra_defeat_final",
+        "luchar hidra": "hydra_defeat_final",
+        "golpear hidra": "hydra_defeat_final"
+      }
+    },
+    "hydra_defeat_final": {
+      "text": "scenes.hydra_defeat.final",
+      "type": "game_over",
+      "isGameOver": true
+    },
+    "hydra_study": {
+      "type": "text_input",
+      "text": "scenes.hydra_study.base",
+      "prompt": "prompt.what_to_do",
+      "characterSpecificText": {
+        "wizard": "scenes.hydra_study.wizard",
+        "hero": "scenes.hydra_study.hero",
+        "thief": "scenes.hydra_study.thief"
+      },
+      "keywords": {
+        "prepare weapon": "hydra_preparation",
+        "ready weapon": "hydra_preparation",
+        "set up weapon": "hydra_preparation",
+        "equip weapon": "hydra_preparation",
+        "preparar arma": "hydra_preparation",
+        "alistar arma": "hydra_preparation",
+        "equipar arma": "hydra_preparation",
+        "disponer arma": "hydra_preparation",
+        "attack hydra": "hydra_defeat_first",
+        "fight hydra": "hydra_defeat_first",
+        "strike hydra": "hydra_defeat_first",
+        "atacar hidra": "hydra_defeat_first",
+        "luchar hidra": "hydra_defeat_first",
+        "golpear hidra": "hydra_defeat_first"
+      }
+    },
+    "hydra_preparation": {
+      "type": "text_input",
+      "text": "scenes.hydra_preparation.base",
+      "prompt": "prompt.what_to_do",
+      "characterSpecificText": {
+        "wizard": "scenes.hydra_preparation.wizard",
+        "hero": "scenes.hydra_preparation.hero",
+        "thief": "scenes.hydra_preparation.thief"
+      },
+      "keywords": {
+        "take staff": "hydra_battle",
+        "pick up staff": "hydra_battle",
+        "grab staff": "hydra_battle",
+        "get staff": "hydra_battle",
+        "collect staff": "hydra_battle",
+        "tomar baston": "hydra_battle",
+        "recoger baston": "hydra_battle",
+        "agarrar baston": "hydra_battle",
+        "coger baston": "hydra_battle",
+        "obtener baston": "hydra_battle",
+        "use sword": "hydra_battle",
+        "usar espada": "hydra_battle",
+        "prepare trap": "hydra_battle",
+        "preparar trampa": "hydra_battle",
+        "attack hydra": "hydra_defeat_first",
+        "atacar hidra": "hydra_defeat_first"
+      }
+    },
+    "hydra_equipment": {
+      "text": "scenes.hydra_equipment.base",
+      "characterSpecificText": {
+        "wizard": "scenes.hydra_equipment.wizard",
+        "hero": "scenes.hydra_equipment.hero",
+        "thief": "scenes.hydra_equipment.thief"
+      },
+      "choices": [
+        {
+          "text": "choices.hydra.face_hydra",
+          "nextScene": "hydra_battle"
+        }
+      ]
+    },
+    "hydra_battle": {
+      "type": "text_input",
+      "text": "scenes.hydra_battle.base",
+      "prompt": "prompt.what_to_do",
+      "characterSpecificText": {
+        "wizard": "scenes.hydra_battle.wizard",
+        "hero": "scenes.hydra_battle.hero",
+        "thief": "scenes.hydra_battle.thief"
+      },
+      "keywords": {
+        "use staff": "hydra_victory",
+        "activate staff": "hydra_victory",
+        "operate staff": "hydra_victory",
+        "usar baston": "hydra_victory",
+        "utilizar baston": "hydra_victory",
+        "activar baston": "hydra_victory",
+        "use sword": "hydra_victory",
+        "activate sword": "hydra_victory",
+        "operate sword": "hydra_victory",
+        "usar espada": "hydra_victory",
+        "utilizar espada": "hydra_victory",
+        "activar espada": "hydra_victory",
+        "use trap": "hydra_victory",
+        "activate trap": "hydra_victory",
+        "trigger trap": "hydra_victory",
+        "usar trampa": "hydra_victory",
+        "utilizar trampa": "hydra_victory",
+        "activar trampa": "hydra_victory",
+        "attack hydra": "hydra_defeat_first",
+        "fight hydra": "hydra_defeat_first",
+        "strike hydra": "hydra_defeat_first",
+        "atacar hidra": "hydra_defeat_first",
+        "luchar hidra": "hydra_defeat_first",
+        "golpear hidra": "hydra_defeat_first"
+      }
+    },
+    "hydra_victory": {
+      "text": "scenes.hydra_victory.base",
+      "characterSpecificText": {
+        "wizard": "scenes.hydra_victory.wizard",
+        "hero": "scenes.hydra_victory.hero",
+        "thief": "scenes.hydra_victory.thief"
+      },
+      "choices": [
+        {
+          "text": "choices.hydra.return_olympus",
+          "nextScene": "quest_complete"
+        }
+      ]
+    },
+    "dedalo_quest": {
+      "text": "scenes.dedalo_quest.base",
+      "characterSpecificText": {
+        "wizard": "scenes.dedalo_quest.wizard",
+        "hero": "scenes.dedalo_quest.hero",
+        "thief": "scenes.dedalo_quest.thief"
+      },
+      "choices": [
+        {
+          "text": "choices.dedalo.examine_map",
+          "nextScene": "maze_map"
+        },
+        {
+          "text": "choices.dedalo.check_walls",
+          "nextScene": "maze_walls"
+        },
+        {
+          "text": "choices.dedalo.listen_sounds",
+          "nextScene": "maze_sounds"
+        }
+      ]
+    },
+    "persephone_quest": {
+      "text": "scenes.persephone_quest.base",
+      "characterSpecificText": {
+        "wizard": "scenes.persephone_quest.wizard",
+        "hero": "scenes.persephone_quest.hero",
+        "thief": "scenes.persephone_quest.thief"
+      },
+      "choices": [
+        {
+          "text": "choices.persephone.shadow_path",
+          "nextScene": "underworld_stealth"
+        },
+        {
+          "text": "choices.persephone.challenge_hades",
+          "nextScene": "confront_hades"
+        },
+        {
+          "text": "choices.persephone.find_passage",
+          "nextScene": "secret_passage"
+        }
+      ]
+    }
+  }
+}
