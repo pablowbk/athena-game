@@ -3,20 +3,17 @@
     "wizard": {
       "type": "wizard",
       "description": "A master of arcane arts, skilled in solving mysteries with magic.",
-      "specialAbility": "Can detect magical auras and cast spells",
-      "imagePath": "/wizard"
+      "specialAbility": "Can detect magical auras and cast spells"
     },
     "hero": {
       "type": "hero",
       "description": "A brave warrior, strong in combat and natural leadership.",
-      "specialAbility": "Can overcome physical challenges and inspire others",
-      "imagePath": "/hero"
+      "specialAbility": "Can overcome physical challenges and inspire others"
     },
     "thief": {
       "type": "thief",
       "description": "A cunning rogue, expert in stealth and finding hidden paths.",
-      "specialAbility": "Can pick locks and find secret passages",
-      "imagePath": "/thief"
+      "specialAbility": "Can pick locks and find secret passages"
     }
   },
   "scenes": {

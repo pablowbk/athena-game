@@ -58,7 +58,16 @@ const GameScene: React.FC<GameSceneProps> = ({
     }
 
     // Handle inventory check
-    const inventoryCommands = ['inventory', 'inv', 'items', 'bag', 'backpack', 'inventario', 'objetos', 'mochila'];
+    const inventoryCommands = [
+      'inventory',
+      'inv',
+      'items',
+      'bag',
+      'backpack',
+      'inventario',
+      'objetos',
+      'mochila',
+    ];
     if (inventoryCommands.includes(normalizedInput)) {
       setShowInventory(true);
       setShowHelp(false);
@@ -69,9 +78,9 @@ const GameScene: React.FC<GameSceneProps> = ({
     // Handle item examination
     if (normalizedInput.startsWith('examine ') || normalizedInput.startsWith('examinar ')) {
       const itemName = normalizedInput.split(' ')[1];
-      const inventoryItem = inventory.find(item =>
-        item.toLowerCase() === itemName ||
-        t(`items.${item}`).toLowerCase().includes(itemName)
+      const inventoryItem = inventory.find(
+        (item) =>
+          item.toLowerCase() === itemName || t(`items.${item}`).toLowerCase().includes(itemName)
       );
 
       if (inventoryItem) {
@@ -84,9 +93,9 @@ const GameScene: React.FC<GameSceneProps> = ({
     // Handle item usage
     if (normalizedInput.startsWith('use ') || normalizedInput.startsWith('usar ')) {
       const itemName = normalizedInput.split(' ')[1];
-      const inventoryItem = inventory.find(item =>
-        item.toLowerCase() === itemName ||
-        t(`items.${item}`).toLowerCase().includes(itemName)
+      const inventoryItem = inventory.find(
+        (item) =>
+          item.toLowerCase() === itemName || t(`items.${item}`).toLowerCase().includes(itemName)
       );
 
       if (inventoryItem) {
@@ -94,11 +103,13 @@ const GameScene: React.FC<GameSceneProps> = ({
         const itemRestrictions = {
           staff: 'wizard',
           'fire-sword': 'hero',
-          'greek-fire': 'thief'
+          'greek-fire': 'thief',
         };
 
-        if (itemRestrictions[inventoryItem as keyof typeof itemRestrictions] &&
-          itemRestrictions[inventoryItem as keyof typeof itemRestrictions] !== character.type) {
+        if (
+          itemRestrictions[inventoryItem as keyof typeof itemRestrictions] &&
+          itemRestrictions[inventoryItem as keyof typeof itemRestrictions] !== character.type
+        ) {
           setErrorMessage(t(`itemDescriptions.${inventoryItem}.wrongCharacter`));
           setUserInput('');
           return;
@@ -153,25 +164,21 @@ const GameScene: React.FC<GameSceneProps> = ({
     }
   };
 
-  const availableChoices = 'choices' in scene
-    ? scene.choices.filter(choice =>
-      !choice.requiredCharacter || choice.requiredCharacter === character.type
-    )
-    : [];
+  const availableChoices =
+    'choices' in scene
+      ? scene.choices.filter(
+          (choice) => !choice.requiredCharacter || choice.requiredCharacter === character.type
+        )
+      : [];
 
   return (
     <>
       <div className={styles.characterDetailsWrapper}>
-        <CharacterDetails
-          character={character}
-          playerName={playerName}
-        />
+        <CharacterDetails character={character} playerName={playerName} />
       </div>
 
       <div className={styles.container}>
-        <div className={styles.sceneText}>
-          {sceneText}
-        </div>
+        <div className={styles.sceneText}>{sceneText}</div>
 
         {'type' in scene && scene.type === 'game_over' ? (
           <GameOver onRetry={handleRetry} />
@@ -194,17 +201,13 @@ const GameScene: React.FC<GameSceneProps> = ({
             <form onSubmit={handleTextInput} className={styles.textInput}>
               <p>{t(scene.prompt)}</p>
               <div className={styles.textInputWrapper}>
-                <div
-                  ref={hiddenTextRef}
-                  className={styles.hiddenText}
-                  aria-hidden="true"
-                >
+                <div ref={hiddenTextRef} className={styles.hiddenText} aria-hidden="true">
                   {userInput}
                 </div>
                 <div
                   className={styles.cursor}
                   style={{
-                    transform: `translateX(${cursorOffset}px)`
+                    transform: `translateX(${cursorOffset}px)`,
                   }}
                 />
                 <input
@@ -235,4 +238,4 @@ const GameScene: React.FC<GameSceneProps> = ({
   );
 };
 
-export default GameScene; 
+export default GameScene;

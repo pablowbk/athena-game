@@ -18,17 +18,14 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.blob}></div> {/* Added blur effect div */}
       <h1 className={styles.title}>{t('gameTitle')}</h1>
       <p className={styles.description}>{t('gameDescription')}</p>
-      <button
-        className={styles.button}
-        onClick={onStart}
-        onKeyDown={handleKeyDown}
-      >
+      <button className={styles.button} onClick={onStart} onKeyDown={handleKeyDown}>
         {t('startGame')}
       </button>
     </div>
   );
 };
 
-export default StartScreen; 
+export default StartScreen;

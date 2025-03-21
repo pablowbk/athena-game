@@ -6,6 +6,7 @@
   min-height: 60vh;
   text-align: center;
   gap: 2rem;
+  position: relative;
 }
 
 @media (max-width: 768px) {
@@ -132,6 +133,29 @@
 }
 
 .button:focus-visible {
-  box-shadow: 0 0 0 2px var(--bg-darker), 0 0 0 4px var(--border-color);
+  box-shadow:
+    0 0 0 2px var(--bg-darker),
+    0 0 0 4px var(--border-color);
   outline: none;
+}
+
+.blob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20vw;
+  height: 20vw;
+  background: #4bfaae;
+  filter: blur(100px);
+  animation: moveBlob 5s infinite alternate;
+  opacity: 0.5;
+}
+
+@keyframes moveBlob {
+  0% {
+    transform: translate(-50%, -50%) translateX(-20px) translateY(-20px);
+  }
+  100% {
+    transform: translate(-50%, -50%) translateX(20px) translateY(20px);
+  }
 }

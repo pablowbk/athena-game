@@ -4,7 +4,6 @@ export interface Character {
   type: CharacterType;
   description: string;
   specialAbility: string;
-  imagePath: string;
 }
 
 export interface Choice {
@@ -47,4 +46,4 @@ export interface GameState {
 export interface StoryData {
   scenes: Record<string, Scene>;
   characters: Record<CharacterType, Character>;
-} 
+}
