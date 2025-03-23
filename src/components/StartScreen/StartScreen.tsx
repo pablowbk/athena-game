@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import styles from './StartScreen.module.css';
 
@@ -8,21 +8,38 @@ interface StartScreenProps {
 
 const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
   const { t } = useLanguage();
+  const [start, setStart] = useState(false);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      onStart();
+      handleStart();
     }
   };
 
+  const handleStart = () => {
+    setStart(true);
+    setTimeout(() => {
+      onStart();
+    }, 2000);
+  };
+
   return (
-    <div className={styles.container}>
-      <div className={styles.blob}></div> {/* Added blur effect div */}
+    <div className={`${styles.container} ${start ? styles.start : ''}`}>
       <h1 className={styles.title}>{t('gameTitle')}</h1>
       <p className={styles.description}>{t('gameDescription')}</p>
-      <button className={styles.button} onClick={onStart} onKeyDown={handleKeyDown}>
-        {t('startGame')}
+
+      <div className={styles.blob}></div>
+
+      <button
+        type="button"
+        className={styles.button}
+        onClick={handleStart}
+        onKeyDown={handleKeyDown}
+        disabled={start}
+      >
+        <span className={styles.cursor}></span>
+        <span>{t('startGame')}</span>
       </button>
     </div>
   );
