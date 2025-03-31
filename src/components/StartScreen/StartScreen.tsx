@@ -29,8 +29,6 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
       <h1 className={styles.title}>{t('gameTitle')}</h1>
       <p className={styles.description}>{t('gameDescription')}</p>
 
-      <div className={styles.blob}></div>
-
       <button
         type="button"
         className={styles.button}

@@ -5,7 +5,9 @@ import CharacterDetails from '../CharacterDetails/CharacterDetails';
 import { GameOver } from '../GameOver';
 import { HelpMenu } from '../HelpMenu';
 import { InventoryDisplay } from '../InventoryDisplay';
+import PromptContainer from '../PromptContainer/PromptContainer'; // Import the new component
 import styles from './GameScene.module.css';
+import cs from 'classnames';
 
 interface GameSceneProps {
   scene: Scene;
@@ -34,6 +36,7 @@ const GameScene: React.FC<GameSceneProps> = ({
   const [showInventory, setShowInventory] = useState(false);
   const [cursorOffset, setCursorOffset] = useState(0);
   const hiddenTextRef = useRef<HTMLDivElement>(null);
+  const [fade, setFade] = useState(false);
 
   useEffect(() => {
     if (hiddenTextRef.current) {
@@ -41,6 +44,11 @@ const GameScene: React.FC<GameSceneProps> = ({
       setCursorOffset(textWidth);
     }
   }, [userInput]);
+
+  useEffect(() => {
+    setFade(true);
+    return () => setFade(false);
+  }, [scene]);
 
   const handleTextInput = (e: React.FormEvent) => {
     e.preventDefault();
@@ -164,6 +172,11 @@ const GameScene: React.FC<GameSceneProps> = ({
     }
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserInput(e.target.value);
+    setErrorMessage('');
+  };
+
   const availableChoices =
     'choices' in scene
       ? scene.choices.filter(
@@ -173,16 +186,19 @@ const GameScene: React.FC<GameSceneProps> = ({
 
   return (
     <>
-      <div className={styles.characterDetailsWrapper}>
+      {/* Character Details */}
+      <div className={`${styles.characterDetailsWrapper} ${fade ? 'fadeIn' : 'fadeOut'}`}>
         <CharacterDetails character={character} playerName={playerName} />
       </div>
 
-      <div className={styles.container}>
+      {/* GAMEOVER */}
+      {'type' in scene && scene.type === 'game_over' && <GameOver onRetry={handleRetry} />}
+
+      {/* Scene container */}
+      <div className={`${styles.GameScene} ${fade ? 'fadeIn' : 'fadeOut'}`}>
         <div className={styles.sceneText}>{sceneText}</div>
 
-        {'type' in scene && scene.type === 'game_over' ? (
-          <GameOver onRetry={handleRetry} />
-        ) : 'choices' in scene ? (
+        {'choices' in scene ? (
           <div className={styles.choices} role="menu">
             {availableChoices.map((choice, index) => (
               <button
@@ -197,42 +213,30 @@ const GameScene: React.FC<GameSceneProps> = ({
             ))}
           </div>
         ) : (
-          <>
-            <form onSubmit={handleTextInput} className={styles.textInput}>
-              <p>{t(scene.prompt)}</p>
-              <div className={styles.textInputWrapper}>
-                <div ref={hiddenTextRef} className={styles.hiddenText} aria-hidden="true">
-                  {userInput}
-                </div>
-                <div
-                  className={styles.cursor}
-                  style={{
-                    transform: `translateX(${cursorOffset}px)`,
-                  }}
-                />
-                <input
-                  type="text"
-                  value={userInput}
-                  onChange={(e) => {
-                    setUserInput(e.target.value);
-                    setErrorMessage('');
-                  }}
-                  onKeyDown={handleKeyPress}
-                  placeholder={t('whatToDo_placeholder')}
-                  autoFocus
-                />
-              </div>
-              {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
-            </form>
-
-            <HelpMenu show={showHelp} />
-            <InventoryDisplay
-              show={showInventory}
-              inventory={inventory}
-              onClose={() => setShowInventory(false)}
-            />
-          </>
+          <PromptContainer
+            scene={scene as TextInputScene}
+            userInput={userInput}
+            cursorOffset={cursorOffset}
+            hiddenTextRef={hiddenTextRef}
+            errorMessage={errorMessage}
+            handleTextInput={handleTextInput}
+            handleInputChange={handleInputChange}
+            handleKeyPress={handleKeyPress}
+          />
         )}
+      </div>
+
+      {/* Aux display */}
+      <div className={cs(styles.auxDisplay, { fadeIn: fade })}>
+        {showHelp || (showInventory && <div className={styles.backdrop}></div>)}
+        {/* Show Help */}
+        <HelpMenu show={showHelp} />
+        {/* Show Inventory */}
+        <InventoryDisplay
+          show={showInventory}
+          inventory={inventory}
+          onClose={() => setShowInventory(false)}
+        />
       </div>
     </>
   );

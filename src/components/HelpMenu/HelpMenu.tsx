@@ -23,4 +23,4 @@ export const HelpMenu: React.FC<HelpMenuProps> = ({ show }) => {
       </ul>
     </div>
   );
-}; 
+};

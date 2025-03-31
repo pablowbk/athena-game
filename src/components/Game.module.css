@@ -1,4 +1,4 @@
-.container {
+.Game {
   position: relative;
   max-width: 800px;
   margin: 0 auto;
@@ -21,14 +21,14 @@
 }
 
 @media (max-width: 768px) {
-  .container {
+  .Game {
     margin: 0;
     padding: var(--mobile-padding);
     min-height: 90vh;
   }
 }
 
-.container::before {
+.Game::before {
   content: '';
   position: absolute;
   top: 0;
@@ -89,4 +89,31 @@
     0 0 0 2px rgba(0, 0, 0, 0.8),
     0 0 0 4px #0f0;
   opacity: 1;
+}
+
+.blob {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: max(20vw, 200px);
+  height: max(20vw, 200px);
+  background: var(--shadow-color);
+  filter: blur(80px);
+  animation: moveBlob 6s infinite alternate;
+  opacity: 1;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.blobTransition {
+  transition: all 0.3s ease;
+}
+
+@keyframes moveBlob {
+  0% {
+    transform: translate(-50%, -50%) translateX(-40px) translateY(-40px);
+  }
+  100% {
+    transform: translate(-50%, -50%) translateX(40px) translateY(40px);
+  }
 }

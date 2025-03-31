@@ -2,7 +2,8 @@
   position: fixed;
   top: 1rem;
   left: 1rem;
-  z-index: 100;
+  z-index: 10;
+  transition: opacity 0.5s ease-in-out;
 }
 
 @media (max-width: 768px) {
@@ -12,18 +13,21 @@
   }
 }
 
-.container {
+.GameScene {
+  flex: 1;
   max-width: 800px;
+  height: 100%;
   margin: 0 auto;
   padding: 2rem;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   gap: 2rem;
-  height: 100%;
+  transition: opacity 0.5s ease-in-out;
 }
 
 @media (max-width: 768px) {
-  .container {
+  .GameScene {
     padding: var(--mobile-padding);
     gap: 1rem;
   }
@@ -69,6 +73,8 @@
 
 .sceneText {
   max-height: 60vh;
+  flex: 1;
+  margin-block-end: auto;
   overflow-y: auto;
   font-size: 1.2rem;
   line-height: 1.6;
@@ -83,7 +89,7 @@
     font-size: 1rem;
     line-height: 1.4;
     padding: 0.75rem;
-    max-height: 50vh;
+    /* max-height: 50vh; */
   }
 }
 
@@ -128,12 +134,13 @@
 
 .choiceButton:focus-visible {
   border-color: var(--border-color);
-  box-shadow: 0 0 0 2px var(--bg-darker), 0 0 0 4px var(--border-color);
+  box-shadow:
+    0 0 0 2px var(--bg-darker),
+    0 0 0 4px var(--border-color);
   outline: none;
 }
 
 @keyframes blink {
-
   0%,
   49% {
     opacity: 1;
@@ -142,171 +149,6 @@
   50%,
   100% {
     opacity: 0;
-  }
-}
-
-.textInput {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.textInputWrapper {
-  position: relative;
-  margin-top: .5rem;
-  background-color: var(--bg-darker);
-  border: 1px solid var(--border-color);
-  padding: 0.8rem;
-  display: flex;
-  align-items: center;
-}
-
-.textInput input {
-  width: 100%;
-  background: none;
-  border: none;
-  color: var(--text-color);
-  font-family: monospace;
-  font-size: 1rem;
-  caret-color: transparent;
-  text-shadow: 0 0 3px var(--glow-color);
-  position: relative;
-  z-index: 1;
-  padding: 0;
-  margin: 0;
-}
-
-.textInput input:focus {
-  outline: none;
-}
-
-.textInputWrapper:focus-within {
-  border-color: var(--border-color);
-  box-shadow: 0 0 0 2px var(--bg-darker), 0 0 0 4px var(--border-color);
-}
-
-.hiddenText {
-  visibility: hidden;
-  position: absolute;
-  top: 0.8rem;
-  left: 0.8rem;
-  white-space: pre;
-  font-family: monospace;
-  font-size: 1.2rem;
-  pointer-events: none;
-  padding: 0;
-  margin: 0;
-  display: inline-block;
-}
-
-.cursor {
-  position: absolute;
-  top: .9rem;
-  left: 0.8rem;
-  width: 0.5rem;
-  height: 1.2em;
-  background-color: var(--text-color);
-  animation: blink 1s steps(2) infinite;
-  box-shadow: 0 0 5px var(--glow-color);
-  transition: transform 0.05s ease;
-  pointer-events: none;
-}
-
-@media (max-width: 768px) {
-  .textInputWrapper {
-    padding: 0.6rem;
-  }
-
-  .textInput input {
-    font-size: 1rem;
-  }
-
-  .hiddenText {
-    font-size: 1rem;
-    top: 0.6rem;
-    left: 0.6rem;
-  }
-
-  .cursor {
-    top: 0.6rem;
-    left: 0.6rem;
-    height: 1.4em;
-  }
-}
-
-.textInput input::placeholder {
-  color: var(--text-dim);
-  font-family: monospace;
-}
-
-.textInput button {
-  padding: 0.8rem 1.5rem;
-  background-color: var(--bg-darker);
-  border: 1px solid var(--border-color);
-  color: var(--text-color);
-  cursor: pointer;
-  font-family: inherit;
-}
-
-.textInput button:focus-visible {
-  border-color: var(--border-color);
-  box-shadow: 0 0 0 2px var(--bg-darker), 0 0 0 4px var(--border-color);
-  outline: none;
-}
-
-.errorMessage {
-  color: var(--error-color);
-  margin: 0.5rem 0;
-  font-size: 0.9rem;
-  font-style: italic;
-  text-shadow: 0 0 5px rgba(255, 51, 51, 0.5);
-}
-
-@media (max-width: 768px) {
-  .errorMessage {
-    font-size: 0.8rem;
-  }
-}
-
-.helpBox {
-  margin-top: 1rem;
-  padding: 1rem;
-  background-color: var(--bg-darker);
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
-}
-
-@media (max-width: 768px) {
-  .helpBox {
-    padding: 0.75rem;
-  }
-}
-
-.helpBox h3 {
-  margin: 0 0 1rem 0;
-  color: var(--text-color);
-  text-shadow: 0 0 5px var(--glow-color);
-}
-
-.helpBox ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.helpBox li {
-  padding: 0.5rem 0;
-  color: var(--text-color);
-  text-shadow: 0 0 5px var(--glow-color);
-  font-family: monospace;
-  font-size: 1.1rem;
-}
-
-@media (max-width: 768px) {
-  .helpBox li {
-    font-size: 0.9rem;
-    padding: 0.4rem 0;
   }
 }
 
@@ -324,4 +166,24 @@
     padding-top: 0.75rem;
     font-size: 0.8rem;
   }
+}
+
+.auxDisplay {
+  position: absolute;
+  /* top: 4rem;
+  left: 4rem; */
+  z-index: 10;
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.auxDisplay .backdrop {
+  position: fixed;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  /* background-color: red; */
+  backdrop-filter: blur(4px);
+  z-index: -1;
 }

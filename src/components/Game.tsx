@@ -13,7 +13,7 @@ const typedStoryData = storyData as StoryData;
 const initialGameState: GameState = {
   currentScene: 'title',
   inventory: [],
-  visitedScenes: new Set()
+  visitedScenes: new Set(),
 };
 
 const Game: React.FC = () => {
@@ -26,7 +26,7 @@ const Game: React.FC = () => {
       if (parsed.currentScene !== 'title' && parsed.currentScene !== 'start') {
         return {
           ...parsed,
-          visitedScenes: new Set(parsed.visitedScenes)
+          visitedScenes: new Set(parsed.visitedScenes),
         };
       }
     }
@@ -42,25 +42,30 @@ const Game: React.FC = () => {
 
     const stateToSave = {
       ...gameState,
-      visitedScenes: Array.from(gameState.visitedScenes)
+      visitedScenes: Array.from(gameState.visitedScenes),
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(stateToSave));
   }, [gameState]);
 
-  const currentScene = gameState.currentScene === 'title' ? null : typedStoryData.scenes[gameState.currentScene] as Scene;
+  const currentScene =
+    gameState.currentScene === 'title'
+      ? null
+      : (typedStoryData.scenes[gameState.currentScene] as Scene);
 
   const handleChoice = (choice: Choice, playerName?: string) => {
     if (gameState.currentScene === 'start') {
-      const characterType = choice.text.toLowerCase().includes('wizard') ? 'wizard'
-        : choice.text.toLowerCase().includes('hero') ? 'hero'
+      const characterType = choice.text.toLowerCase().includes('wizard')
+        ? 'wizard'
+        : choice.text.toLowerCase().includes('hero')
+          ? 'hero'
           : 'thief';
 
-      setGameState(prev => ({
+      setGameState((prev) => ({
         ...prev,
         currentScene: choice.nextScene,
         character: typedStoryData.characters[characterType as CharacterType],
         visitedScenes: new Set([choice.nextScene]),
-        playerName: playerName
+        playerName: playerName,
       }));
       return;
     }
@@ -79,11 +84,11 @@ const Game: React.FC = () => {
           continue;
         }
 
-        setGameState(prev => ({
+        setGameState((prev) => ({
           ...prev,
           currentScene: choice.nextScene,
           visitedScenes: new Set([...prev.visitedScenes, choice.nextScene]),
-          inventory: [...prev.inventory, item]
+          inventory: [...prev.inventory, item],
         }));
         return;
       }
@@ -93,50 +98,56 @@ const Game: React.FC = () => {
     if (gameState.character?.type) {
       const specialAction = SPECIAL_ACTIONS[gameState.character.type];
       if (choice.text.includes(specialAction.command)) {
-        setGameState(prev => ({
+        setGameState((prev) => ({
           ...prev,
           currentScene: choice.nextScene,
           visitedScenes: new Set([...prev.visitedScenes, choice.nextScene]),
-          inventory: [...prev.inventory, specialAction.item]
+          inventory: [...prev.inventory, specialAction.item],
         }));
         return;
       }
     }
 
-    setGameState(prev => ({
+    setGameState((prev) => ({
       ...prev,
       currentScene: choice.nextScene,
-      visitedScenes: new Set([...prev.visitedScenes, choice.nextScene])
+      visitedScenes: new Set([...prev.visitedScenes, choice.nextScene]),
     }));
   };
 
   const handleStart = () => {
-    setGameState(prev => ({
+    setGameState((prev) => ({
       ...prev,
       currentScene: 'start',
-      visitedScenes: new Set()
+      visitedScenes: new Set(),
     }));
   };
 
   // Soft reset - keeps player name but resets progress
   const handleSoftReset = () => {
-    setGameState(prev => ({
+    setGameState((prev) => ({
       currentScene: 'start',
       inventory: [],
       visitedScenes: new Set(),
-      playerName: prev.playerName // Keep the player name
+      playerName: prev.playerName, // Keep the player name
     }));
   };
 
   // Hard reset - completely resets everything
   const handleHardReset = () => {
-    localStorage.removeItem(STORAGE_KEY);
-    setGameState(initialGameState);
+    if (window.confirm(t('confirmReset'))) {
+      localStorage.removeItem(STORAGE_KEY);
+      setGameState(initialGameState);
+    }
   };
 
   const getSceneText = () => {
     if (!currentScene) return '';
-    if ('characterSpecificText' in currentScene && currentScene.characterSpecificText && gameState.character) {
+    if (
+      'characterSpecificText' in currentScene &&
+      currentScene.characterSpecificText &&
+      gameState.character
+    ) {
       const specificText = currentScene.characterSpecificText[gameState.character.type];
       if (specificText) {
         return t(specificText);
@@ -146,7 +157,11 @@ const Game: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.Game}>
+      {/* bg blob */}
+      <div className={styles.blob}></div>
+
+      {/* Game state */}
       {gameState.currentScene === 'title' ? (
         <StartScreen onStart={handleStart} />
       ) : gameState.currentScene === 'start' ? (
@@ -169,11 +184,8 @@ const Game: React.FC = () => {
           />
           <button
             className={styles.resetButton}
-            onClick={() => {
-              if (window.confirm(t('confirmReset'))) {
-                handleHardReset();
-              }
-            }}
+            type="button"
+            onClick={handleHardReset}
             title={t('resetGame')}
           >
             ↺
@@ -184,4 +196,4 @@ const Game: React.FC = () => {
   );
 };
 
-export default Game; 
+export default Game;

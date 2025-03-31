@@ -15,10 +15,12 @@ export const InventoryDisplay: React.FC<InventoryDisplayProps> = ({ show, invent
 
   return (
     <div className={styles.inventoryDisplay}>
-      <div className={styles.header}>
+      <button className={styles.closeButton} onClick={onClose}>
+        ×
+      </button>
+      {/* <div className={styles.header}>
         <h3>{t('inventoryMessages.title')}</h3>
-        <button className={styles.closeButton} onClick={onClose}>×</button>
-      </div>
+      </div> */}
       {inventory.length === 0 ? (
         <p className={styles.emptyMessage}>{t('inventoryMessages.empty')}</p>
       ) : (
@@ -39,4 +41,4 @@ export const InventoryDisplay: React.FC<InventoryDisplayProps> = ({ show, invent
       )}
     </div>
   );
-}; 
+};

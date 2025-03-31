@@ -1,3 +1,14 @@
+.CharacterSelection {
+  opacity: 0;
+  animation: fadeIn 0.5s forwards 0.5s;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
 .title {
   text-align: center;
   margin-bottom: 2rem;
@@ -18,9 +29,8 @@
 
 .container:hover .card:not(:hover):not(:focus),
 .container:focus-within .card:not(:hover):not(:focus) {
-  opacity: 0.5;
-  filter: brightness(0.9) blur(1px);
-  transition: all 0.3s ease;
+  filter: blur(3px);
+  transition: filter 0.3s ease;
 }
 
 .card {
@@ -39,8 +49,8 @@
 .card:hover,
 .card:focus {
   opacity: 1;
-  filter: brightness(1);
-  transform: translateX(5px);
+  /* filter: brightness(1); */
+  transform: translateX(4px);
   border-color: var(--border-color);
   box-shadow: 0 0 15px var(--shadow-color);
   z-index: 1;
@@ -48,7 +58,9 @@
 
 .card:focus-visible {
   border-color: var(--border-color);
-  box-shadow: 0 0 0 2px var(--bg-darker), 0 0 0 4px var(--border-color);
+  box-shadow:
+    0 0 0 2px var(--bg-darker),
+    0 0 0 4px var(--border-color);
   outline: none;
 }
 
@@ -63,7 +75,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: all 0.3s ease;
+  transition: all 0.15s ease;
 }
 
 .card:hover .icon {
@@ -131,5 +143,7 @@
 .input:focus {
   outline: none;
   border-color: var(--border-color);
-  box-shadow: 0 0 0 2px var(--bg-darker), 0 0 0 4px var(--border-color);
+  box-shadow:
+    0 0 0 2px var(--bg-darker),
+    0 0 0 4px var(--border-color);
 }

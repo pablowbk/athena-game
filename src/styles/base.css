@@ -179,3 +179,12 @@
     padding: var(--mobile-padding);
   }
 }
+
+/* Animation states */
+.fadeIn {
+  opacity: 1;
+}
+
+.fadeOut {
+  opacity: 0;
+}

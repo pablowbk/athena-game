@@ -21,22 +21,28 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({
   const handleKeyDown = (e: React.KeyboardEvent, character: Character) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      onSelect({
-        text: character.type,
-        nextScene: 'character_chosen'
-      }, playerName);
+      onSelect(
+        {
+          text: character.type,
+          nextScene: 'character_chosen',
+        },
+        playerName
+      );
     }
   };
 
   const handleCharacterSelect = (character: Character) => {
-    onSelect({
-      text: character.type,
-      nextScene: 'character_chosen'
-    }, playerName);
+    onSelect(
+      {
+        text: character.type,
+        nextScene: 'character_chosen',
+      },
+      playerName
+    );
   };
 
   return (
-    <>
+    <section className={styles.CharacterSelection}>
       <h2 className={styles.title}>{t('chooseCharacter')}</h2>
       <div className={styles.nameInput}>
         <label htmlFor="playerName">{t('enterName')}:</label>
@@ -71,8 +77,8 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({
           </div>
         ))}
       </div>
-    </>
+    </section>
   );
 };
 
-export default CharacterSelection; 
+export default CharacterSelection;
