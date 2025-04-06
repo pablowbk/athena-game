@@ -33,12 +33,16 @@ const PromptContainer: React.FC<PromptContainerProps> = ({
         <div ref={hiddenTextRef} className={styles.hiddenText} aria-hidden="true">
           {userInput}
         </div>
+
+        {/* Caret */}
         <div
           className={styles.cursor}
           style={{
             transform: `translateX(${cursorOffset}px)`,
           }}
         />
+
+        {/* Prompt Input */}
         <input
           type="text"
           name="scenePrompt"

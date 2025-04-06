@@ -157,6 +157,7 @@ const GameScene: React.FC<GameSceneProps> = ({
     }
 
     setErrorMessage(t('errorMessage'));
+    setUserInput('');
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
