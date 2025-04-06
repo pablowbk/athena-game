@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useEscapeKey } from '../../hooks/useEscapeKey';
 import styles from './InventoryDisplay.module.css';
 
 interface InventoryDisplayProps {
@@ -10,6 +11,7 @@ interface InventoryDisplayProps {
 
 export const InventoryDisplay: React.FC<InventoryDisplayProps> = ({ show, inventory, onClose }) => {
   const { t } = useLanguage();
+  useEscapeKey(onClose, show);
 
   if (!show) return null;
 

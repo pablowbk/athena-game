@@ -77,10 +77,11 @@
   }
 }
 
-.resetButton:hover {
+.resetButton:hover,
+.resetButton:focus {
   opacity: 1;
   background: rgba(0, 255, 0, 0.1);
-  transform: rotate(180deg);
+  transform: rotate(360deg);
 }
 
 .resetButton:focus {
@@ -88,7 +89,6 @@
   box-shadow:
     0 0 0 2px rgba(0, 0, 0, 0.8),
     0 0 0 4px #0f0;
-  opacity: 1;
 }
 
 .blob {

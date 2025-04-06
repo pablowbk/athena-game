@@ -12,6 +12,7 @@ interface PromptContainerProps {
   handleTextInput: (e: React.FormEvent) => void;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleKeyPress: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  scenePromptRef: React.RefObject<HTMLInputElement>;
 }
 
 const PromptContainer: React.FC<PromptContainerProps> = ({
@@ -23,6 +24,7 @@ const PromptContainer: React.FC<PromptContainerProps> = ({
   handleTextInput,
   handleInputChange,
   handleKeyPress,
+  scenePromptRef,
 }) => {
   const { t } = useLanguage();
 
@@ -50,6 +52,7 @@ const PromptContainer: React.FC<PromptContainerProps> = ({
           onChange={handleInputChange}
           onKeyDown={handleKeyPress}
           placeholder={t('whatToDo_placeholder')}
+          ref={scenePromptRef}
           autoFocus
         />
       </div>

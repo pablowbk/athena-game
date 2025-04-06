@@ -37,18 +37,13 @@ const GameScene: React.FC<GameSceneProps> = ({
   const [cursorOffset, setCursorOffset] = useState(0);
   const hiddenTextRef = useRef<HTMLDivElement>(null);
   const [fade, setFade] = useState(false);
+  const scenePromptRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    if (hiddenTextRef.current) {
-      const textWidth = hiddenTextRef.current.getBoundingClientRect().width;
-      setCursorOffset(textWidth);
-    }
-  }, [userInput]);
-
-  useEffect(() => {
-    setFade(true);
-    return () => setFade(false);
-  }, [scene]);
+  const hideAuxDisplay = () => {
+    if (showHelp) setShowHelp(false);
+    if (showInventory) setShowInventory(false);
+    scenePromptRef.current?.focus();
+  };
 
   const handleTextInput = (e: React.FormEvent) => {
     e.preventDefault();
@@ -185,6 +180,18 @@ const GameScene: React.FC<GameSceneProps> = ({
         )
       : [];
 
+  useEffect(() => {
+    if (hiddenTextRef.current) {
+      const textWidth = hiddenTextRef.current.getBoundingClientRect().width;
+      setCursorOffset(textWidth);
+    }
+  }, [userInput]);
+
+  useEffect(() => {
+    setFade(true);
+    return () => setFade(false);
+  }, [scene]);
+
   return (
     <>
       {/* Character Details */}
@@ -223,21 +230,20 @@ const GameScene: React.FC<GameSceneProps> = ({
             handleTextInput={handleTextInput}
             handleInputChange={handleInputChange}
             handleKeyPress={handleKeyPress}
+            scenePromptRef={scenePromptRef}
           />
         )}
       </div>
 
       {/* Aux display */}
       <div className={cs(styles.auxDisplay, { fadeIn: fade })}>
-        {showHelp || (showInventory && <div className={styles.backdrop}></div>)}
+        {(showHelp || showInventory) && (
+          <div className={styles.backdrop} onClick={hideAuxDisplay}></div>
+        )}
         {/* Show Help */}
-        <HelpMenu show={showHelp} />
+        <HelpMenu show={showHelp} onClose={hideAuxDisplay} />
         {/* Show Inventory */}
-        <InventoryDisplay
-          show={showInventory}
-          inventory={inventory}
-          onClose={() => setShowInventory(false)}
-        />
+        <InventoryDisplay show={showInventory} inventory={inventory} onClose={hideAuxDisplay} />
       </div>
     </>
   );

@@ -1,13 +1,17 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useEscapeKey } from '../../hooks/useEscapeKey';
 import styles from './HelpMenu.module.css';
 
 interface HelpMenuProps {
   show: boolean;
+  onClose: () => void;
 }
 
-export const HelpMenu: React.FC<HelpMenuProps> = ({ show }) => {
+export const HelpMenu: React.FC<HelpMenuProps> = ({ show, onClose }) => {
   const { t } = useLanguage();
+
+  useEscapeKey(onClose, show);
 
   if (!show) return null;
 

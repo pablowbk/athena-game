@@ -3,6 +3,7 @@
   border: 1px solid var(--border-color);
   padding: 1rem;
   border-radius: 4px;
+  position: relative;
 }
 
 .header {
@@ -20,8 +21,8 @@
 
 .closeButton {
   position: absolute;
-  right: 0;
-  top: 0;
+  right: -1.5rem;
+  top: -1.5rem;
   background: none;
   border: none;
   color: var(--text-muted);
