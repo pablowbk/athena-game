@@ -13,6 +13,7 @@ export const translations = {
     specialAbility: 'Special Ability',
     enterName: 'Enter your name',
     yourName: 'Your name',
+    yourName_error: 'Please enter a name.',
     defaultPlayerName: 'Player',
 
     // Characters
@@ -294,6 +295,7 @@ export const translations = {
     specialAbility: 'Habilidad Especial',
     enterName: 'Ingresa tu nombre',
     yourName: 'Tu nombre',
+    yourName_error: 'Debes ingresar un nombre.',
     defaultPlayerName: 'Jugador',
 
     // Characters

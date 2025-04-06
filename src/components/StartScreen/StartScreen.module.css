@@ -129,7 +129,6 @@
 
 .button:hover,
 .button:focus {
-  /* background-color: var(--bg-color); */
   box-shadow: 0 0 20px var(--shadow-color);
   transform: translateY(-2px);
 }
@@ -152,9 +151,7 @@
 }
 
 .container.start .button {
-  /* background-color: var(--glow-color);
-  color: white;
-  border-color: white; */
+  pointer-events: none;
   transition-duration: 0.8s;
   transform: translateY(-50%) !important;
   animation: fadeOut 2s forwards;
