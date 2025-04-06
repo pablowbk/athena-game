@@ -17,7 +17,7 @@ const initialGameState: GameState = {
 };
 
 const Game: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [gameState, setGameState] = useState<GameState>(() => {
     const savedState = localStorage.getItem(STORAGE_KEY);
     if (savedState) {
@@ -46,6 +46,11 @@ const Game: React.FC = () => {
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(stateToSave));
   }, [gameState]);
+
+  useEffect(() => {
+    document.title = t('gameTitle');
+    console.log(language);
+  }, [language]);
 
   const currentScene =
     gameState.currentScene === 'title'
@@ -165,11 +170,7 @@ const Game: React.FC = () => {
       {gameState.currentScene === 'title' ? (
         <StartScreen onStart={handleStart} />
       ) : gameState.currentScene === 'start' ? (
-        <CharacterSelection
-          characters={typedStoryData.characters}
-          onSelect={handleChoice}
-          defaultPlayerName={gameState.playerName || t('defaultPlayerName')}
-        />
+        <CharacterSelection characters={typedStoryData.characters} onSelect={handleChoice} />
       ) : currentScene && gameState.character ? (
         <>
           <GameScene
