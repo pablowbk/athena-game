@@ -16,6 +16,7 @@
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+  opacity: 0.75;
 }
 
 .selector:hover,
@@ -23,10 +24,13 @@
   border-color: var(--border-color);
   box-shadow: 0 0 10px var(--glow-color);
   outline: none;
+  opacity: 1;
 }
 
 .selector:focus-visible {
-  box-shadow: 0 0 0 2px var(--bg-darker), 0 0 0 4px var(--border-color);
+  box-shadow:
+    0 0 0 2px var(--bg-darker),
+    0 0 0 4px var(--border-color);
 }
 
 .selector option {

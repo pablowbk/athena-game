@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { Scene, Character, Choice, TextInputScene } from '../../types/game';
+import { Scene, Character, Choice, TextInputScene, MultipleChoiceScene } from '../../types/game';
 import CharacterDetails from '../CharacterDetails/CharacterDetails';
 import { GameOver } from '../GameOver';
 import { HelpMenu } from '../HelpMenu';
 import { InventoryDisplay } from '../InventoryDisplay';
 import PromptContainer from '../PromptContainer/PromptContainer'; // Import the new component
+import ChoicesContainer from '../ChoicesContainer/ChoicesContainer'; // Import the new component
 import styles from './GameScene.module.css';
 import cs from 'classnames';
 
@@ -52,7 +53,8 @@ const GameScene: React.FC<GameSceneProps> = ({
     const normalizedInput = userInput.toLowerCase().trim();
 
     // Special handling for help command
-    if (normalizedInput === 'help' || normalizedInput === 'ayuda') {
+    const helpCommands = ['help', 'ayuda', 'command', 'comando', 'commands', 'comandos'];
+    if (helpCommands.includes(normalizedInput)) {
       setShowHelp(true);
       setShowInventory(false);
       setUserInput('');
@@ -173,13 +175,6 @@ const GameScene: React.FC<GameSceneProps> = ({
     setErrorMessage('');
   };
 
-  const availableChoices =
-    'choices' in scene
-      ? scene.choices.filter(
-          (choice) => !choice.requiredCharacter || choice.requiredCharacter === character.type
-        )
-      : [];
-
   useEffect(() => {
     if (hiddenTextRef.current) {
       const textWidth = hiddenTextRef.current.getBoundingClientRect().width;
@@ -207,30 +202,22 @@ const GameScene: React.FC<GameSceneProps> = ({
         <div className={styles.sceneText}>{sceneText}</div>
 
         {'choices' in scene ? (
-          <div className={styles.choices} role="menu">
-            {availableChoices.map((choice, index) => (
-              <button
-                key={index}
-                onClick={() => onChoice(choice)}
-                className={styles.choiceButton}
-                role="menuitem"
-                tabIndex={0}
-              >
-                {t(choice.text)}
-              </button>
-            ))}
-          </div>
+          <ChoicesContainer
+            character={character}
+            onChoice={onChoice}
+            scene={scene as MultipleChoiceScene}
+          />
         ) : (
           <PromptContainer
-            scene={scene as TextInputScene}
-            userInput={userInput}
             cursorOffset={cursorOffset}
-            hiddenTextRef={hiddenTextRef}
             errorMessage={errorMessage}
-            handleTextInput={handleTextInput}
             handleInputChange={handleInputChange}
             handleKeyPress={handleKeyPress}
+            handleTextInput={handleTextInput}
+            hiddenTextRef={hiddenTextRef}
+            scene={scene as TextInputScene}
             scenePromptRef={scenePromptRef}
+            userInput={userInput}
           />
         )}
       </div>

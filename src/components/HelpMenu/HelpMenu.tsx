@@ -19,11 +19,26 @@ export const HelpMenu: React.FC<HelpMenuProps> = ({ show, onClose }) => {
     <div className={styles.helpBox}>
       <h3>{t('commandList.title')}</h3>
       <ul>
-        <li>{t('availableCommands.examine')}</li>
-        <li>{t('availableCommands.take')}</li>
-        <li>{t('availableCommands.use')}</li>
-        <li>{t('availableCommands.attack')}</li>
-        <li>{t('availableCommands.prepare')}</li>
+        <li>
+          <span className={styles.command}>{t('availableCommands.examine')}</span>{' '}
+          <span>{t('availableCommands.examine_description')}</span>
+        </li>
+        <li>
+          <span className={styles.command}>{t('availableCommands.take')}</span>{' '}
+          <span>{t('availableCommands.take_description')}</span>
+        </li>
+        <li>
+          <span className={styles.command}>{t('availableCommands.use')}</span>{' '}
+          <span>{t('availableCommands.use_description')}</span>
+        </li>
+        <li>
+          <span className={styles.command}>{t('availableCommands.attack')}</span>{' '}
+          <span>{t('availableCommands.attack_description')}</span>
+        </li>
+        <li>
+          <span className={styles.command}>{t('availableCommands.prepare')}</span>{' '}
+          <span>{t('availableCommands.prepare_description')}</span>
+        </li>
       </ul>
     </div>
   );

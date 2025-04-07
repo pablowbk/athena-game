@@ -6,9 +6,7 @@
 }
 
 .helpBox h3 {
-  margin-top: 0;
   color: var(--text-color);
-  text-shadow: 0 0 5px var(--glow-color);
 }
 
 .helpBox ul {
@@ -26,4 +24,9 @@
 .helpBox li:hover {
   color: var(--text-color);
   text-shadow: 0 0 5px var(--glow-color);
+}
+
+.command {
+  color: var(--text-color);
+  font-weight: bold;
 }

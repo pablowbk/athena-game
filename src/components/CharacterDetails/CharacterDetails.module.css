@@ -20,7 +20,8 @@
 
 .info {
   display: flex;
-  gap: .5rem;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .playerName {

@@ -1,0 +1,45 @@
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .choices {
+    gap: 0.5rem;
+  }
+}
+
+.choiceButton {
+  padding: 1rem;
+  background-color: var(--bg-darker);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  text-align: left;
+  text-shadow: 0 0 5px var(--glow-color);
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .choiceButton {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+}
+
+.choiceButton:hover,
+.choiceButton:focus {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+}
+
+.choiceButton:focus-visible {
+  border-color: var(--border-color);
+  box-shadow:
+    0 0 0 2px var(--bg-darker),
+    0 0 0 4px var(--border-color);
+  outline: none;
+}

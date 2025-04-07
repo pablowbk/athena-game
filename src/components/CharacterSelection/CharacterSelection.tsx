@@ -45,7 +45,7 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({ characters, onS
       onSelect(
         {
           text: character.type,
-          nextScene: 'character_chosen',
+          nextScene: 'tutorial',
         },
         playerName
       );
@@ -57,7 +57,7 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({ characters, onS
     onSelect(
       {
         text: character.type,
-        nextScene: 'character_chosen',
+        nextScene: 'tutorial',
       },
       playerName
     );

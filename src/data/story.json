@@ -22,26 +22,26 @@
       "choices": [
         {
           "text": "wizard.choice",
-          "nextScene": "character_chosen"
+          "nextScene": "tutorial"
         },
         {
           "text": "hero.choice",
-          "nextScene": "character_chosen"
+          "nextScene": "tutorial"
         },
         {
           "text": "thief.choice",
-          "nextScene": "character_chosen"
+          "nextScene": "tutorial"
         }
       ]
     },
-    "character_chosen": {
+    "tutorial": {
       "type": "text_input",
-      "text": "scenes.character_chosen.base",
+      "text": "scenes.tutorial.base",
       "prompt": "prompt.what_to_do",
       "characterSpecificText": {
-        "wizard": "scenes.character_chosen.wizard",
-        "hero": "scenes.character_chosen.hero",
-        "thief": "scenes.character_chosen.thief"
+        "wizard": "scenes.tutorial.wizard",
+        "hero": "scenes.tutorial.hero",
+        "thief": "scenes.tutorial.thief"
       },
       "keywords": {
         "examine scroll": "scroll_examined",

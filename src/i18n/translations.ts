@@ -41,7 +41,7 @@ export const translations = {
     inventory: 'Inventory',
     submit: 'Submit',
     whatToDo: 'What do you want to do?',
-    whatToDo_placeholder: 'Type a command (verb + object)',
+    whatToDo_placeholder: 'Type a command',
     errorMessage:
       "I don't understand that command. Try using: examine, take, use, attack, or prepare. Type 'help' for more details.",
     resetGame: 'Reset game',
@@ -99,11 +99,16 @@ export const translations = {
     // Available commands
     availableCommands: {
       title: 'Available Commands',
-      examine: 'examine [object] - Look at something closely',
-      take: 'take [object] - Pick up an item',
-      use: 'use [object] - Use an item or interact with something',
-      attack: 'attack [target] - Engage in combat',
-      prepare: 'prepare [action] - Get ready for an action',
+      examine: 'examine',
+      examine_description: '[object] - Look at something closely',
+      take: 'take',
+      take_description: '[object] - Pick up an item',
+      use: 'use',
+      use_description: '[object] - Use an item or interact with something',
+      attack: 'attack',
+      attack_description: '[target] - Engage in combat',
+      prepare: 'prepare',
+      prepare_description: '[action] - Get ready for an action',
     },
 
     // Command synonyms (for internal use)
@@ -133,7 +138,7 @@ export const translations = {
 
     // Prompts and choices
     prompt: {
-      what_to_do: "What would you like to do? Try: 'examine scroll', 'take scroll', or 'use door'",
+      what_to_do: 'What would you like to do?',
       hydra_quest:
         "What would you like to do? Try: 'examine hydra', 'prepare weapon', or 'attack hydra'",
       help: "Type 'help' at any time to see available commands",
@@ -180,7 +185,7 @@ export const translations = {
       start: {
         text: 'Before your adventure begins, you must choose your path. Who are you?',
       },
-      character_chosen: {
+      tutorial: {
         base: 'You find yourself in a small chamber within an ancient temple. Sunlight filters through a high window, illuminating dust motes that dance in the air. The walls are adorned with faded frescoes depicting the gods of Olympus. A wooden table stands in the corner, and upon it rests an old scroll. The only exit is a heavy bronze door.',
         wizard:
           "The air tingles with ancient magic, and your arcane senses detect faint traces of protective enchantments woven into the temple's stones. A wooden table holds what appears to be a magical scroll.",
@@ -323,7 +328,7 @@ export const translations = {
     inventory: 'Inventario',
     submit: 'Enviar',
     whatToDo: '¿Qué quieres hacer?',
-    whatToDo_placeholder: 'Escribe un comando (verbo + objeto)',
+    whatToDo_placeholder: 'Escribe un comando',
     errorMessage:
       "No entiendo ese comando. Intenta usar: examinar, tomar, usar, atacar, o preparar. Escribe 'ayuda' para más detalles.",
     resetGame: 'Reiniciar juego',
@@ -383,11 +388,16 @@ export const translations = {
     // Available commands
     availableCommands: {
       title: 'Comandos Disponibles',
-      examine: 'examinar [objeto] - Mirar algo detenidamente',
-      take: 'tomar [objeto] - Recoger un objeto',
-      use: 'usar [objeto] - Usar un objeto o interactuar con algo',
-      attack: 'atacar [objetivo] - Entrar en combate',
-      prepare: 'preparar [acción] - Prepararse para una acción',
+      examine: 'examinar',
+      examine_description: '[objeto] - Mirar algo de cerca',
+      take: 'tomar',
+      take_description: '[objeto] - Recoger un objeto',
+      use: 'usar',
+      use_description: '[objeto] - Usar un objeto o interactuar con algo',
+      attack: 'atacar',
+      attack_description: '[objetivo] - Iniciar combate',
+      prepare: 'preparar',
+      prepare_description: '[acción] - Prepararse para una acción',
     },
 
     // Command synonyms (for internal use)
@@ -424,10 +434,8 @@ export const translations = {
 
     // Prompts and choices
     prompt: {
-      what_to_do:
-        "¿Qué quieres hacer? Prueba: 'examinar pergamino', 'tomar pergamino', o 'usar puerta'",
-      hydra_quest:
-        "¿Qué quieres hacer? Prueba: 'examinar hidra', 'preparar arma', o 'atacar hidra'",
+      what_to_do: '¿Qué quieres hacer?',
+      hydra_quest: '¿Qué quieres hacer?',
       help: "Escribe 'ayuda' en cualquier momento para ver los comandos disponibles",
     },
     choices: {
@@ -472,7 +480,7 @@ export const translations = {
       start: {
         text: 'Antes de que comience tu aventura, debes elegir tu camino. ¿Quién eres?',
       },
-      character_chosen: {
+      tutorial: {
         base: 'Te encuentras en una pequeña cámara dentro de un antiguo templo. La luz del sol se filtra por una ventana alta, iluminando motas de polvo que danzan en el aire. Las paredes están adornadas con frescos descoloridos que representan a los dioses del Olimpo. Una mesa de madera se encuentra en la esquina, y sobre ella descansa un viejo pergamino. La única salida es una pesada puerta de bronce.',
         wizard:
           'El aire vibra con magia antigua, y tus sentidos arcanos detectan tenues rastros de encantamientos protectores tejidos en las piedras del templo. Una mesa de madera sostiene lo que parece ser un pergamino mágico.',
