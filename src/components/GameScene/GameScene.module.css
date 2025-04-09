@@ -71,7 +71,10 @@
   font-style: italic;
 }
 
-.sceneText {
+.sceneTextContainer {
+  position: relative;
+  display: grid;
+  grid-template-areas: 'text';
   max-height: 50vh;
   flex: 1;
   margin-block-end: auto;
@@ -84,8 +87,19 @@
   text-shadow: 0 0 5px var(--glow-color);
 }
 
+.sceneText,
+.hiddenText {
+  grid-area: text;
+}
+
+.hiddenText {
+  visibility: hidden;
+  pointer-events: none;
+  /* white-space: pre-wrap; */
+}
+
 @media (max-width: 768px) {
-  .sceneText {
+  .sceneTextContainer {
     font-size: 1rem;
     line-height: 1.4;
     padding: 0.75rem;

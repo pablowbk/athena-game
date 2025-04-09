@@ -5,10 +5,11 @@ import CharacterDetails from '../CharacterDetails/CharacterDetails';
 import { GameOver } from '../GameOver';
 import { HelpMenu } from '../HelpMenu';
 import { InventoryDisplay } from '../InventoryDisplay';
-import PromptContainer from '../PromptContainer/PromptContainer'; // Import the new component
-import ChoicesContainer from '../ChoicesContainer/ChoicesContainer'; // Import the new component
+import PromptContainer from '../PromptContainer/PromptContainer';
+import ChoicesContainer from '../ChoicesContainer/ChoicesContainer';
 import styles from './GameScene.module.css';
 import cs from 'classnames';
+import SceneText from './SceneText';
 
 interface GameSceneProps {
   scene: Scene;
@@ -199,7 +200,7 @@ const GameScene: React.FC<GameSceneProps> = ({
 
       {/* Scene container */}
       <div className={`${styles.GameScene} ${fade ? 'fadeIn' : 'fadeOut'}`}>
-        <div className={styles.sceneText}>{sceneText}</div>
+        <SceneText sceneText={sceneText} />
 
         {'choices' in scene ? (
           <ChoicesContainer
