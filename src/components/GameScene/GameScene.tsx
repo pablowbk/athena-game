@@ -10,6 +10,7 @@ import ChoicesContainer from '../ChoicesContainer/ChoicesContainer';
 import styles from './GameScene.module.css';
 import cs from 'classnames';
 import SceneText from './SceneText';
+import { HELP_COMMANDS, INVENTORY_COMMANDS } from '../../constants';
 
 interface GameSceneProps {
   scene: Scene;
@@ -54,8 +55,7 @@ const GameScene: React.FC<GameSceneProps> = ({
     const normalizedInput = userInput.toLowerCase().trim();
 
     // Special handling for help command
-    const helpCommands = ['help', 'ayuda', 'command', 'comando', 'commands', 'comandos'];
-    if (helpCommands.includes(normalizedInput)) {
+    if (HELP_COMMANDS.includes(normalizedInput)) {
       setShowHelp(true);
       setShowInventory(false);
       setUserInput('');
@@ -64,17 +64,7 @@ const GameScene: React.FC<GameSceneProps> = ({
     }
 
     // Handle inventory check
-    const inventoryCommands = [
-      'inventory',
-      'inv',
-      'items',
-      'bag',
-      'backpack',
-      'inventario',
-      'objetos',
-      'mochila',
-    ];
-    if (inventoryCommands.includes(normalizedInput)) {
+    if (INVENTORY_COMMANDS.includes(normalizedInput)) {
       setShowInventory(true);
       setShowHelp(false);
       setUserInput('');

@@ -29,6 +29,19 @@ export const ITEM_PICKUP_COMMANDS: Record<string, string[]> = {
   ],
 };
 
+// Added constants for help and inventory commands
+export const HELP_COMMANDS = ['help', 'ayuda', 'command', 'comando', 'commands', 'comandos'];
+export const INVENTORY_COMMANDS = [
+  'inventory',
+  'inv',
+  'items',
+  'bag',
+  'backpack',
+  'inventario',
+  'objetos',
+  'mochila',
+];
+
 export const SPECIAL_ACTIONS: Record<CharacterType, { command: string; item: string }> = {
   hero: { command: 'use sword', item: 'fire-sword' },
   wizard: { command: 'use staff', item: 'staff' },
