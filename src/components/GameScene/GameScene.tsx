@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { Scene, Character, Choice, TextInputScene, MultipleChoiceScene } from '../../types/game';
 import CharacterDetails from '../CharacterDetails/CharacterDetails';
@@ -10,7 +10,8 @@ import ChoicesContainer from '../ChoicesContainer/ChoicesContainer';
 import styles from './GameScene.module.css';
 import cs from 'classnames';
 import SceneText from './SceneText';
-import { HELP_COMMANDS, INVENTORY_COMMANDS } from '../../constants';
+import { HELP_COMMANDS, INVENTORY_COMMANDS, itemRestrictions } from '../../constants';
+import useAuxDisplay from '../../hooks/useAuxDisplay';
 
 interface GameSceneProps {
   scene: Scene;
@@ -35,18 +36,12 @@ const GameScene: React.FC<GameSceneProps> = ({
   const { t } = useLanguage();
   const [userInput, setUserInput] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [showHelp, setShowHelp] = useState(false);
-  const [showInventory, setShowInventory] = useState(false);
   const [cursorOffset, setCursorOffset] = useState(0);
   const hiddenTextRef = useRef<HTMLDivElement>(null);
   const [fade, setFade] = useState(false);
   const scenePromptRef = useRef<HTMLInputElement>(null);
 
-  const hideAuxDisplay = () => {
-    if (showHelp) setShowHelp(false);
-    if (showInventory) setShowInventory(false);
-    scenePromptRef.current?.focus();
-  };
+  const { showHelp, showInventory, hideAuxDisplay, toggleHelp, toggleInventory } = useAuxDisplay();
 
   const handleTextInput = (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,8 +51,7 @@ const GameScene: React.FC<GameSceneProps> = ({
 
     // Special handling for help command
     if (HELP_COMMANDS.includes(normalizedInput)) {
-      setShowHelp(true);
-      setShowInventory(false);
+      toggleHelp();
       setUserInput('');
       setErrorMessage('');
       return;
@@ -65,8 +59,7 @@ const GameScene: React.FC<GameSceneProps> = ({
 
     // Handle inventory check
     if (INVENTORY_COMMANDS.includes(normalizedInput)) {
-      setShowInventory(true);
-      setShowHelp(false);
+      toggleInventory();
       setUserInput('');
       return;
     }
@@ -96,12 +89,6 @@ const GameScene: React.FC<GameSceneProps> = ({
 
       if (inventoryItem) {
         // Check character restrictions
-        const itemRestrictions = {
-          staff: 'wizard',
-          'fire-sword': 'hero',
-          'greek-fire': 'thief',
-        };
-
         if (
           itemRestrictions[inventoryItem as keyof typeof itemRestrictions] &&
           itemRestrictions[inventoryItem as keyof typeof itemRestrictions] !== character.type
@@ -117,8 +104,7 @@ const GameScene: React.FC<GameSceneProps> = ({
         for (const [keyword, nextScene] of Object.entries(textScene.keywords)) {
           if (keyword.toLowerCase().includes(useKeyword)) {
             setErrorMessage('');
-            setShowHelp(false);
-            setShowInventory(false);
+            hideAuxDisplay();
             onChoice({ text: normalizedInput, nextScene });
             setUserInput('');
             return;
@@ -136,8 +122,7 @@ const GameScene: React.FC<GameSceneProps> = ({
     for (const [keyword, nextScene] of Object.entries(textScene.keywords)) {
       if (normalizedInput.includes(keyword)) {
         setErrorMessage('');
-        setShowHelp(false);
-        setShowInventory(false);
+        hideAuxDisplay();
         onChoice({ text: normalizedInput, nextScene });
         setUserInput('');
         return;
@@ -166,6 +151,11 @@ const GameScene: React.FC<GameSceneProps> = ({
     setErrorMessage('');
   };
 
+  const memoizedCharacterDetails = useMemo(
+    () => <CharacterDetails character={character} playerName={playerName} />,
+    [character, playerName, t]
+  );
+
   useEffect(() => {
     if (hiddenTextRef.current) {
       const textWidth = hiddenTextRef.current.getBoundingClientRect().width;
@@ -182,7 +172,7 @@ const GameScene: React.FC<GameSceneProps> = ({
     <>
       {/* Character Details */}
       <div className={`${styles.characterDetailsWrapper} ${fade ? 'fadeIn' : 'fadeOut'}`}>
-        <CharacterDetails character={character} playerName={playerName} />
+        {memoizedCharacterDetails}
       </div>
 
       {/* GAMEOVER */}

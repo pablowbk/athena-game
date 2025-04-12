@@ -31,6 +31,7 @@ export const ITEM_PICKUP_COMMANDS: Record<string, string[]> = {
 
 // Added constants for help and inventory commands
 export const HELP_COMMANDS = ['help', 'ayuda', 'command', 'comando', 'commands', 'comandos'];
+
 export const INVENTORY_COMMANDS = [
   'inventory',
   'inv',
@@ -46,4 +47,10 @@ export const SPECIAL_ACTIONS: Record<CharacterType, { command: string; item: str
   hero: { command: 'use sword', item: 'fire-sword' },
   wizard: { command: 'use staff', item: 'staff' },
   thief: { command: 'prepare trap', item: 'greek-fire' },
+};
+
+export const itemRestrictions = {
+  staff: 'wizard',
+  'fire-sword': 'hero',
+  'greek-fire': 'thief',
 };
