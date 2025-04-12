@@ -8,7 +8,6 @@ import { InventoryDisplay } from '../InventoryDisplay';
 import PromptContainer from '../PromptContainer/PromptContainer';
 import ChoicesContainer from '../ChoicesContainer/ChoicesContainer';
 import styles from './GameScene.module.css';
-import cs from 'classnames';
 import SceneText from './SceneText';
 import { HELP_COMMANDS, INVENTORY_COMMANDS, itemRestrictions } from '../../constants';
 import useAuxDisplay from '../../hooks/useAuxDisplay';
@@ -208,15 +207,16 @@ const GameScene: React.FC<GameSceneProps> = ({
       </div>
 
       {/* Aux display */}
-      <div className={cs(styles.auxDisplay, { fadeIn: fade })}>
-        {(showHelp || showInventory) && (
+      {(showHelp || showInventory) && (
+        <div className={styles.auxDisplay}>
+          {/* Backdrop overlay */}
           <div className={styles.backdrop} onClick={hideAuxDisplay}></div>
-        )}
-        {/* Show Help */}
-        <HelpMenu show={showHelp} onClose={hideAuxDisplay} />
-        {/* Show Inventory */}
-        <InventoryDisplay show={showInventory} inventory={inventory} onClose={hideAuxDisplay} />
-      </div>
+          {/* Show Help */}
+          <HelpMenu show={showHelp} onClose={hideAuxDisplay} />
+          {/* Show Inventory */}
+          <InventoryDisplay show={showInventory} inventory={inventory} onClose={hideAuxDisplay} />
+        </div>
+      )}
     </>
   );
 };

@@ -29,7 +29,7 @@ const ChoicesContainer: React.FC<ChoicesContainerProps> = ({ scene, onChoice, ch
           role="menuitem"
           tabIndex={0}
           type="button"
-          autoFocus={availableChoices.length === 1}
+          // autoFocus={availableChoices.length === 1}
         >
           {t(choice.text)}
         </button>
