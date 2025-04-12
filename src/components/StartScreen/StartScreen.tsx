@@ -25,17 +25,15 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
   };
 
   return (
-    <div className={`${styles.container} ${start ? styles.start : ''}`}>
+    <div
+      className={`${styles.container} ${start ? styles.start : ''}`}
+      onKeyDown={handleKeyDown}
+      tabIndex={0} // Make the div focusable to capture key events
+    >
       <h1 className={styles.title}>{t('gameTitle')}</h1>
       <p className={styles.description}>{t('gameDescription')}</p>
 
-      <button
-        type="button"
-        className={styles.button}
-        onClick={handleStart}
-        onKeyDown={handleKeyDown}
-        disabled={start}
-      >
+      <button type="button" className={styles.button} onClick={handleStart} disabled={start}>
         <span className={styles.cursor}></span>
         <span>{t('startGame')}</span>
       </button>
