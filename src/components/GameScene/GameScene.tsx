@@ -76,6 +76,10 @@ const GameScene: React.FC<GameSceneProps> = ({
         setErrorMessage(t(`itemDescriptions.${inventoryItem}.examine`));
         setUserInput('');
         return;
+      } else {
+        setErrorMessage(t('errorMessage'));
+        setUserInput('');
+        return;
       }
     }
 

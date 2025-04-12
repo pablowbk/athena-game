@@ -53,9 +53,12 @@
   color: var(--text-color);
   padding: 0.4rem 0;
   cursor: help;
+  display: list-item;
+}
+
+.item span {
   text-shadow: 0 0 3px var(--glow-color);
   font-weight: bold;
-  display: list-item;
   font-size: 1.1rem;
 }
 

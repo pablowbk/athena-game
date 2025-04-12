@@ -78,11 +78,11 @@
         "use door": "door_locked",
         "interact with door": "door_locked",
         "activate door": "door_locked",
-        "operate door": "door_locked",
+        "open door": "door_locked",
         "usar puerta": "door_locked",
         "utilizar puerta": "door_locked",
         "activar puerta": "door_locked",
-        "operar puerta": "door_locked"
+        "abrir puerta": "door_locked"
       }
     },
     "scroll_examined": {

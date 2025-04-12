@@ -109,6 +109,10 @@ export const translations = {
       attack_description: '[target] - Engage in combat',
       prepare: 'prepare',
       prepare_description: '[action] - Get ready for an action',
+      help: 'help',
+      help_description: 'Display a list of available commands',
+      inventory: 'inventory',
+      inventory_description: 'Check the items you are carrying',
     },
 
     // Command synonyms (for internal use)
@@ -402,6 +406,10 @@ export const translations = {
       attack_description: '[objetivo] - Iniciar combate',
       prepare: 'preparar',
       prepare_description: '[acción] - Prepararse para una acción',
+      help: 'ayuda',
+      help_description: '- Mostrar una lista de comandos disponibles',
+      inventory: 'inventario',
+      inventory_description: '- Verifica los objetos que llevas contigo',
     },
 
     // Command synonyms (for internal use)

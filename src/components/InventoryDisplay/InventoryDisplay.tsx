@@ -20,21 +20,17 @@ export const InventoryDisplay: React.FC<InventoryDisplayProps> = ({ show, invent
       <button className={styles.closeButton} onClick={onClose}>
         ×
       </button>
-      {/* <div className={styles.header}>
-        <h3>{t('inventoryMessages.title')}</h3>
-      </div> */}
       {inventory.length === 0 ? (
         <p className={styles.emptyMessage}>{t('inventoryMessages.empty')}</p>
       ) : (
         <>
           <ul className={styles.itemList}>
             {inventory.map((item, index) => (
-              <li
-                key={index}
-                className={styles.item}
-                title={t(`itemDescriptions.${item}.description`)}
-              >
-                {t(`items.${item}`)}
+              <li key={index} className={styles.item}>
+                <p>
+                  <span>{t(`items.${item}`)}: </span>
+                  {t(`itemDescriptions.${item}.description`)}
+                </p>
               </li>
             ))}
           </ul>
