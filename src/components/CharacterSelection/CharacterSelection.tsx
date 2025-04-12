@@ -15,6 +15,8 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({ characters, onS
   const [error, setError] = useState(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
+  const nextScene = 'intro';
+
   const focusInput = () => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -45,7 +47,7 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({ characters, onS
       onSelect(
         {
           text: character.type,
-          nextScene: 'tutorial',
+          nextScene,
         },
         playerName
       );
@@ -57,7 +59,7 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({ characters, onS
     onSelect(
       {
         text: character.type,
-        nextScene: 'tutorial',
+        nextScene,
       },
       playerName
     );

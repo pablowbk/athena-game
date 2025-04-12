@@ -22,14 +22,23 @@
       "choices": [
         {
           "text": "wizard.choice",
-          "nextScene": "tutorial"
+          "nextScene": "intro"
         },
         {
           "text": "hero.choice",
-          "nextScene": "tutorial"
+          "nextScene": "intro"
         },
         {
           "text": "thief.choice",
+          "nextScene": "intro"
+        }
+      ]
+    },
+    "intro": {
+      "text": "scenes.intro.text",
+      "choices": [
+        {
+          "text": "choices.proceed_to_tutorial",
           "nextScene": "tutorial"
         }
       ]

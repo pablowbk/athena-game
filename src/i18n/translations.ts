@@ -144,6 +144,7 @@ export const translations = {
       help: "Type 'help' at any time to see available commands",
     },
     choices: {
+      proceed_to_tutorial: 'Continue',
       step_through: 'Step through the door',
       examine_surroundings: 'Examine your surroundings carefully',
       help_hercules: 'Aid Hercules in his battle against the fearsome Hydra',
@@ -184,6 +185,9 @@ export const translations = {
     scenes: {
       start: {
         text: 'Before your adventure begins, you must choose your path. Who are you?',
+      },
+      intro: {
+        text: "You awaken to the faint glow of runes etched into towering stone columns. The air is cool and carries the scent of ancient stone. Your mind is clouded, memories slipping through your grasp like sand. As you take in your surroundings, the murals on the walls (depicting epic battles between gods and mortals) seem to call to you. A faint whisper echoes in your mind, a voice not your own: 'This is the Hall of Trials, where heroes are chosen and destinies are forged.' Though you cannot recall how you arrived here, a sense of purpose stirs within you. Your adventure is about to begin.",
       },
       tutorial: {
         base: 'You find yourself in a small chamber within an ancient temple. Sunlight filters through a high window, illuminating dust motes that dance in the air. The walls are adorned with faded frescoes depicting the gods of Olympus. A wooden table stands in the corner, and upon it rests an old scroll. The only exit is a heavy bronze door.',
@@ -439,6 +443,7 @@ export const translations = {
       help: "Escribe 'ayuda' en cualquier momento para ver los comandos disponibles",
     },
     choices: {
+      proceed_to_tutorial: 'Continuar',
       step_through: 'Atravesar la puerta',
       examine_surroundings: 'Examinar los alrededores cuidadosamente',
       help_hercules: 'Ayudar a Hércules en su batalla contra la temible Hidra',
@@ -479,6 +484,9 @@ export const translations = {
     scenes: {
       start: {
         text: 'Antes de que comience tu aventura, debes elegir tu camino. ¿Quién eres?',
+      },
+      intro: {
+        text: "Te despiertas con el tenue resplandor de runas grabadas en imponentes columnas de piedra. El aire es fresco y lleva el aroma de la piedra antigua. Tu mente está nublada, los recuerdos se escapan de tu alcance como arena entre los dedos. Mientras observas tu entorno, los murales en las paredes (que representan batallas épicas entre dioses y mortales) parecen llamarte. Un susurro tenue resuena en tu mente, una voz que no es la tuya: 'Este es el Salón de las Pruebas, donde se eligen héroes y se forjan destinos.' Aunque no puedes recordar cómo llegaste aquí, un sentido de propósito se despierta en ti. Tu aventura está a punto de comenzar.",
       },
       tutorial: {
         base: 'Te encuentras en una pequeña cámara dentro de un antiguo templo. La luz del sol se filtra por una ventana alta, iluminando motas de polvo que danzan en el aire. Las paredes están adornadas con frescos descoloridos que representan a los dioses del Olimpo. Una mesa de madera se encuentra en la esquina, y sobre ella descansa un viejo pergamino. La única salida es una pesada puerta de bronce.',
