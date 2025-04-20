@@ -10,6 +10,7 @@ export interface Choice {
   text: string;
   nextScene: string;
   requiredCharacter?: CharacterType;
+  disabled?: boolean;
 }
 
 export interface GameOverScene {

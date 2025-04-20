@@ -29,6 +29,7 @@ const ChoicesContainer: React.FC<ChoicesContainerProps> = ({ scene, onChoice, ch
           role="menuitem"
           tabIndex={0}
           type="button"
+          disabled={choice.disabled}
           // autoFocus={availableChoices.length === 1}
         >
           {t(choice.text)}

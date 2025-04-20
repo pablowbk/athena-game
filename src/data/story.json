@@ -145,11 +145,13 @@
         },
         {
           "text": "choices.help_dedalo",
-          "nextScene": "dedalo_quest"
+          "nextScene": "dedalo_quest",
+          "disabled": true
         },
         {
           "text": "choices.help_persephone",
-          "nextScene": "persephone_quest"
+          "nextScene": "persephone_quest",
+          "disabled": true
         }
       ]
     },
