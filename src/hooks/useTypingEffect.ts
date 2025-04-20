@@ -6,18 +6,24 @@ import { useState, useEffect } from 'react';
  * @param typingSpeed The speed of typing in milliseconds per character (default: 50ms).
  * @returns The progressively displayed text.
  */
-const useTypingEffect = (text: string, typingSpeed: number = 50): string => {
+const useTypingEffect = (
+  text: string,
+  typingSpeed: number = 50
+): { displayedText: string; finishedTyping: boolean } => {
   const [displayedText, setDisplayedText] = useState('');
+  const [finishedTyping, setFinishedTyping] = useState(false);
 
   useEffect(() => {
     let currentIndex = 0;
     setDisplayedText(text[0] || ''); // Display the first letter immediately
+    setFinishedTyping(false);
 
     const interval = setInterval(() => {
       currentIndex++;
       if (currentIndex < text.length) {
         setDisplayedText((prev) => prev + text[currentIndex]);
       } else {
+        setFinishedTyping(true);
         clearInterval(interval);
       }
     }, typingSpeed);
@@ -25,7 +31,7 @@ const useTypingEffect = (text: string, typingSpeed: number = 50): string => {
     return () => clearInterval(interval); // Cleanup on unmount or text change
   }, [text, typingSpeed]);
 
-  return displayedText;
+  return { displayedText, finishedTyping };
 };
 
 export default useTypingEffect;
