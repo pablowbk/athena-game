@@ -5,14 +5,14 @@ import LanguageSelector from './components/LanguageSelector/LanguageSelector';
 import './styles/base.css';
 
 const App: React.FC = () => {
-	return (
-		<LanguageProvider>
-			<LanguageSelector />
-			<div className="app">
-				<Game />
-			</div>
-		</LanguageProvider>
-	);
+  return (
+    <LanguageProvider>
+      <LanguageSelector />
+      <div className="app">
+        <Game />
+      </div>
+    </LanguageProvider>
+  );
 };
 
-export default App; 
+export default App;

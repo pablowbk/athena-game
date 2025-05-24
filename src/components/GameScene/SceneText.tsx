@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from './GameScene.module.css';
 import useTypingEffect from '../../hooks/useTypingEffect';
-import ScrollDown from '../ScrollDownIcon/ScrollDownIcon';
+import ScrollDown from '../ui/ScrollDownIcon/ScrollDownIcon';
 
 interface SceneTextProps {
   sceneText: string;

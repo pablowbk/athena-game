@@ -42,8 +42,7 @@ export const translations = {
     submit: 'Submit',
     whatToDo: 'What do you want to do?',
     whatToDo_placeholder: 'Type a command',
-    errorMessage:
-      "I don't understand that command. Try using: examine, take, use, attack, or prepare. Type 'help' for more details.",
+    errorMessage: "I don't understand that command. Type 'help' for more details.",
     resetGame: 'Reset game',
     confirmReset: 'Are you sure you want to reset the game? All progress will be lost.',
 
@@ -293,6 +292,13 @@ export const translations = {
         final:
           "As you strike the Hydra, two new heads grow where one fell. Overwhelmed by the increasing number of heads, you try to retreat, but it's too late.",
       },
+      quest_complete: {
+        text: 'Congratulations! You have completed your quest and proven yourself a true hero.',
+        wizard: 'The wisdom of the arcane has guided you to victory. Athena smiles upon you.',
+        hero: 'Your bravery and strength have brought glory to Olympus. Athena is proud.',
+        thief:
+          'Your cunning and skill have turned the tide of fate. Athena acknowledges your craft.',
+      },
     },
   },
   es: {
@@ -337,8 +343,7 @@ export const translations = {
     submit: 'Enviar',
     whatToDo: '¿Qué quieres hacer?',
     whatToDo_placeholder: 'Escribe un comando',
-    errorMessage:
-      "No entiendo ese comando. Intenta usar: examinar, tomar, usar, atacar, o preparar. Escribe 'ayuda' para más detalles.",
+    errorMessage: "No entiendo ese comando. Escribe 'ayuda' para más detalles.",
     resetGame: 'Reiniciar juego',
     confirmReset:
       '¿Estás seguro de que quieres reiniciar el juego? Se perderán todos los progresos.',

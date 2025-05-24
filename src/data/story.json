@@ -391,6 +391,22 @@
           "nextScene": "secret_passage"
         }
       ]
+    },
+    "quest_complete": {
+      "type": "game_over",
+      "isGameOver": true,
+      "text": "scenes.quest_complete.text",
+      "characterSpecificText": {
+        "wizard": "scenes.quest_complete.wizard",
+        "hero": "scenes.quest_complete.hero",
+        "thief": "scenes.quest_complete.thief"
+      },
+      "choices": [
+        {
+          "text": "choices.quest_complete.restart",
+          "nextScene": "start"
+        }
+      ]
     }
   }
 }
