@@ -1,22 +1,17 @@
 .selector {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  z-index: 1000;
-  padding: 0.5rem;
+  padding: var(--btn-padding);
   background-color: var(--bg-darker);
   border: 1px solid var(--border-color);
   color: var(--text-color);
   font-family: var(--font-family);
   cursor: pointer;
   transition: all 0.3s ease;
-  font-size: 1.2rem;
   min-width: 45px;
   text-align: center;
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  opacity: 0.75;
+  font-size: 1rem;
 }
 
 .selector:hover,
@@ -24,7 +19,6 @@
   border-color: var(--border-color);
   box-shadow: 0 0 10px var(--glow-color);
   outline: none;
-  opacity: 1;
 }
 
 .selector:focus-visible {

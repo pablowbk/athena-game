@@ -52,6 +52,12 @@ const Game: React.FC = () => {
     console.log(language);
   }, [language]);
 
+  useEffect(() => {
+    const listener = () => handleHardReset();
+    window.addEventListener('hardResetGame', listener);
+    return () => window.removeEventListener('hardResetGame', listener);
+  }, []);
+
   const currentScene =
     gameState.currentScene === 'title'
       ? null
@@ -165,7 +171,6 @@ const Game: React.FC = () => {
     <div className={styles.Game}>
       {/* bg blob */}
       <div className={styles.blob}></div>
-
       {/* Game state */}
       {gameState.currentScene === 'title' ? (
         <StartScreen onStart={handleStart} />
@@ -183,14 +188,6 @@ const Game: React.FC = () => {
             playerName={gameState.playerName}
             onReset={handleSoftReset}
           />
-          <button
-            className={styles.resetButton}
-            type="button"
-            onClick={handleHardReset}
-            title={t('resetGame')}
-          >
-            ↺
-          </button>
         </>
       ) : null}
     </div>

@@ -300,6 +300,10 @@ export const translations = {
           'Your cunning and skill have turned the tide of fate. Athena acknowledges your craft.',
       },
     },
+
+    // Settings
+    settings: 'Settings',
+    language: 'Language',
   },
   es: {
     // Game title and description
@@ -603,5 +607,9 @@ export const translations = {
           'Mientras golpeas a la Hidra, dos nuevas cabezas crecen donde una cayó. Abrumado por el creciente número de cabezas, intentas retirarte, pero es demasiado tarde.',
       },
     },
+
+    // Settings
+    settings: 'Configuración',
+    language: 'Idioma',
   },
 };

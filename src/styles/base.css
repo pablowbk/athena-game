@@ -12,6 +12,9 @@
   --tertiary-color: #ff8c33;
   --error-color: #ff3333;
   --font-family: 'VT323', 'Courier New', monospace;
+  --btn-padding: 0.5rem 1rem;
+  --btn-border-radius: 5px;
+  --modal-border-radius: 4px;
 
   /* Scrollbar custom properties */
   --scrollbar-width: 12px;
