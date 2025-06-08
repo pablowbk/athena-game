@@ -1,24 +1,34 @@
-import React from 'react';
+import { FC } from 'react';
 import styles from './ScrollDownIcon.module.css';
 
-const ScrollDown = ({
-  size = 32,
-  color = 'currentColor',
-  containerHeight,
-  show,
-}: {
+interface ScrollDownProps {
   size?: number;
   color?: string;
   containerHeight: number;
   show: boolean;
+  scroll: (amount?: number) => void;
+}
+
+const ScrollDown: FC<ScrollDownProps> = ({
+  size = 32,
+  color = 'currentColor',
+  containerHeight,
+  show,
+  scroll,
 }) => {
+  const handleScroll = () => {
+    scroll();
+  };
+
   return (
     <div
       style={{
         top: `calc(${size + containerHeight}px + 1rem)`,
         opacity: show ? 1 : 0,
+        pointerEvents: show ? 'auto' : 'none',
       }}
       className={`${styles.scrollDown} ${show ? styles.animate : ''}`}
+      onClick={handleScroll}
     >
       <svg
         fill="var(--bg-color)"

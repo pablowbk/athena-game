@@ -13,6 +13,15 @@ const SceneText: React.FC<SceneTextProps> = ({ sceneText }) => {
   const [showScrollIcon, setShowScrollIcon] = useState(false);
   const [clientHeight, setClientHeight] = useState(0);
 
+  const scrollByAmount = (amount: number = 150) => {
+    if (textContainer.current) {
+      textContainer.current.scrollTo({
+        top: textContainer.current.scrollTop + amount,
+        behavior: 'smooth',
+      });
+    }
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       if (textContainer.current) {
@@ -43,7 +52,7 @@ const SceneText: React.FC<SceneTextProps> = ({ sceneText }) => {
         <div className={styles.hiddenText}>{sceneText}</div>
         <div className={styles.sceneText}>{textWithEffect}</div>
       </div>
-      <ScrollDown containerHeight={clientHeight} show={showScrollIcon} />
+      <ScrollDown containerHeight={clientHeight} show={showScrollIcon} scroll={scrollByAmount} />
     </>
   );
 };
