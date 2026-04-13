@@ -27,6 +27,8 @@ const Game: React.FC = () => {
         return {
           ...parsed,
           visitedScenes: new Set(parsed.visitedScenes),
+          currentScene: 'title',
+          savedScene: parsed.currentScene,
         };
       }
     }
@@ -49,7 +51,6 @@ const Game: React.FC = () => {
 
   useEffect(() => {
     document.title = t('gameTitle');
-    console.log(language);
   }, [language]);
 
   useEffect(() => {
@@ -127,9 +128,11 @@ const Game: React.FC = () => {
   };
 
   const handleStart = () => {
+    // set nextScene to 'start' unless there are are visited scenes in which case we want to get the last visited scene
+    const nextScene = gameState.savedScene ? gameState.savedScene : 'start';
     setGameState((prev) => ({
       ...prev,
-      currentScene: 'start',
+      currentScene: nextScene,
       visitedScenes: new Set(),
     }));
   };
@@ -173,7 +176,7 @@ const Game: React.FC = () => {
       <div className={styles.blob}></div>
       {/* Game state */}
       {gameState.currentScene === 'title' ? (
-        <StartScreen onStart={handleStart} />
+        <StartScreen onStart={handleStart} hasSavedGame={!!gameState.savedScene} />
       ) : gameState.currentScene === 'start' ? (
         <CharacterSelection characters={typedStoryData.characters} onSelect={handleChoice} />
       ) : currentScene && gameState.character ? (

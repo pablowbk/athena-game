@@ -4,9 +4,10 @@ import styles from './StartScreen.module.css';
 
 interface StartScreenProps {
   onStart: () => void;
+  hasSavedGame: boolean;
 }
 
-const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
+const StartScreen: React.FC<StartScreenProps> = ({ onStart, hasSavedGame }) => {
   const { t } = useLanguage();
   const [start, setStart] = useState(false);
 
@@ -24,6 +25,8 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
     }, 2000);
   };
 
+  const startButtonText = hasSavedGame ? t('continueGame') : t('startGame');
+
   return (
     <div
       className={`${styles.container} ${start ? styles.start : ''}`}
@@ -35,7 +38,7 @@ const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
 
       <button type="button" className={styles.button} onClick={handleStart} disabled={start}>
         <span className={styles.cursor}></span>
-        <span>{t('startGame')}</span>
+        <span>{startButtonText}</span>
       </button>
     </div>
   );

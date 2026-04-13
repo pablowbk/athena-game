@@ -6,6 +6,7 @@ export const translations = {
     gameTitle: "Athena's Challenge",
     gameDescription: 'Embark on a mysterious journey where your choices shape the story.',
     startGame: 'Start Adventure',
+    continueGame: 'Resume Adventure',
 
     // Character selection
     chooseCharacter: 'Choose Your Character',
@@ -311,6 +312,7 @@ export const translations = {
     gameDescription:
       'Embárcate en un viaje misterioso donde tus decisiones dan forma a la historia.',
     startGame: 'Comenzar Aventura',
+    continueGame: 'Continuar Aventura',
 
     // Character selection
     chooseCharacter: 'Elige tu Personaje',

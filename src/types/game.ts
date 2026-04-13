@@ -42,6 +42,7 @@ export interface GameState {
   visitedScenes: Set<string>;
   character?: Character;
   playerName?: string;
+  savedScene?: string;
 }
 
 export interface StoryData {
