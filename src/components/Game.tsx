@@ -7,7 +7,15 @@ import CharacterSelection from './CharacterSelection/CharacterSelection';
 import Onboarding from './Onboarding/Onboarding';
 import GameScene from './GameScene/GameScene';
 import styles from './Game.module.css';
-import { STORAGE_KEY, ITEM_PICKUP_COMMANDS, SPECIAL_ACTIONS, GAME_SCENE } from '../constants';
+import {
+  STORAGE_KEY,
+  ITEM_PICKUP_COMMANDS,
+  SPECIAL_ACTIONS,
+  GAME_SCENE,
+  MYTH_HYDRA_ITEM_IDS,
+  SCENE_HYDRA_VICTORY,
+  SCENE_ATHENA_QUEST,
+} from '../constants';
 
 const typedStoryData = storyData as StoryData;
 
@@ -125,11 +133,36 @@ const Game: React.FC = () => {
       }
     }
 
-    setGameState((prev) => ({
-      ...prev,
-      currentScene: choice.nextScene,
-      visitedScenes: new Set([...prev.visitedScenes, choice.nextScene]),
-    }));
+    setGameState((prev) => {
+      if (choice.nextScene === SCENE_HYDRA_VICTORY) {
+        const used = MYTH_HYDRA_ITEM_IDS.find((id) => prev.inventory.includes(id));
+        return {
+          ...prev,
+          currentScene: choice.nextScene,
+          visitedScenes: new Set([...prev.visitedScenes, choice.nextScene]),
+          inventory: used ? prev.inventory.filter((i) => i !== used) : prev.inventory,
+        };
+      }
+
+      return {
+        ...prev,
+        currentScene: choice.nextScene,
+        visitedScenes: new Set([...prev.visitedScenes, choice.nextScene]),
+      };
+    });
+  };
+
+  /** After Hydra game over: return to Athena's branch choice per design doc §6 / §9. */
+  const handleHydraFailureRetry = () => {
+    setGameState((prev) => {
+      const mythSet = new Set<string>(MYTH_HYDRA_ITEM_IDS);
+      return {
+        ...prev,
+        currentScene: SCENE_ATHENA_QUEST,
+        inventory: prev.inventory.filter((id) => !mythSet.has(id)),
+        visitedScenes: new Set([...prev.visitedScenes, SCENE_ATHENA_QUEST]),
+      };
+    });
   };
 
   const handleStart = () => {
@@ -198,6 +231,7 @@ const Game: React.FC = () => {
         <>
           <GameScene
             scene={currentScene}
+            sceneId={gameState.currentScene}
             character={gameState.character}
             sceneText={getSceneText()}
             visitedScenesCount={gameState.visitedScenes.size}
@@ -205,6 +239,7 @@ const Game: React.FC = () => {
             onChoice={handleChoice}
             playerName={gameState.playerName}
             onReset={handleSoftReset}
+            onHydraFailureRetry={handleHydraFailureRetry}
           />
         </>
       ) : null}

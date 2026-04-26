@@ -9,11 +9,20 @@ import PromptContainer from '../PromptContainer/PromptContainer';
 import ChoicesContainer from '../ChoicesContainer/ChoicesContainer';
 import styles from './GameScene.module.css';
 import SceneText from './SceneText';
-import { HELP_COMMANDS, INVENTORY_COMMANDS, itemRestrictions } from '../../constants';
+import {
+  HELP_COMMANDS,
+  INVENTORY_COMMANDS,
+  itemRestrictions,
+  HYDRA_VICTORY_KEYWORD_REQUIRED_ITEM,
+  SCENE_HYDRA_DEFEAT_FINAL,
+  SCENE_HYDRA_VICTORY,
+} from '../../constants';
 import useAuxDisplay from '../../hooks/useAuxDisplay';
 
 interface GameSceneProps {
   scene: Scene;
+  /** Story scene id (e.g. `hydra_battle`) for inventory gates and failure retry. */
+  sceneId: string;
   character: Character;
   sceneText: string;
   visitedScenesCount: number;
@@ -21,16 +30,20 @@ interface GameSceneProps {
   onChoice: (choice: Choice) => void;
   playerName?: string;
   onReset?: () => void;
+  /** Return to Athena quest choice after Hydra game over (design: bad-ending recovery). */
+  onHydraFailureRetry?: () => void;
 }
 
 const GameScene: React.FC<GameSceneProps> = ({
   scene,
+  sceneId,
   character,
   sceneText,
   inventory,
   onChoice,
   playerName,
   onReset,
+  onHydraFailureRetry,
 }) => {
   const { t } = useLanguage();
   const [userInput, setUserInput] = useState('');
@@ -63,7 +76,31 @@ const GameScene: React.FC<GameSceneProps> = ({
       return;
     }
 
-    // Handle item examination
+    // Story keywords first (tutorial "examinar pergamino", door, myth commands) so they are not
+    // swallowed by generic inventory examine/use handlers when the item is not in inventory yet.
+    const textScene = scene as TextInputScene;
+    for (const [keyword, nextScene] of Object.entries(textScene.keywords)) {
+      if (!normalizedInput.includes(keyword)) continue;
+
+      if (nextScene === SCENE_HYDRA_VICTORY) {
+        const required = HYDRA_VICTORY_KEYWORD_REQUIRED_ITEM[keyword];
+        if (!required || !inventory.includes(required)) {
+          setErrorMessage('');
+          hideAuxDisplay();
+          onChoice({ text: normalizedInput, nextScene: SCENE_HYDRA_DEFEAT_FINAL });
+          setUserInput('');
+          return;
+        }
+      }
+
+      setErrorMessage('');
+      hideAuxDisplay();
+      onChoice({ text: normalizedInput, nextScene });
+      setUserInput('');
+      return;
+    }
+
+    // Handle item examination (inventory only — world objects use scene keywords above)
     if (normalizedInput.startsWith('examine ') || normalizedInput.startsWith('examinar ')) {
       const itemName = normalizedInput.split(' ')[1];
       const inventoryItem = inventory.find(
@@ -101,11 +138,19 @@ const GameScene: React.FC<GameSceneProps> = ({
           return;
         }
 
-        // Check if the current scene has a keyword for using this item
-        const textScene = scene as TextInputScene;
         const useKeyword = `use ${itemName}`;
         for (const [keyword, nextScene] of Object.entries(textScene.keywords)) {
           if (keyword.toLowerCase().includes(useKeyword)) {
+            if (nextScene === SCENE_HYDRA_VICTORY) {
+              const required = HYDRA_VICTORY_KEYWORD_REQUIRED_ITEM[keyword];
+              if (!required || !inventory.includes(required)) {
+                setErrorMessage('');
+                hideAuxDisplay();
+                onChoice({ text: normalizedInput, nextScene: SCENE_HYDRA_DEFEAT_FINAL });
+                setUserInput('');
+                return;
+              }
+            }
             setErrorMessage('');
             hideAuxDisplay();
             onChoice({ text: normalizedInput, nextScene });
@@ -116,17 +161,6 @@ const GameScene: React.FC<GameSceneProps> = ({
 
         // If no specific scene interaction, show generic use message
         setErrorMessage(t(`itemDescriptions.${inventoryItem}.canUse`));
-        setUserInput('');
-        return;
-      }
-    }
-
-    const textScene = scene as TextInputScene;
-    for (const [keyword, nextScene] of Object.entries(textScene.keywords)) {
-      if (normalizedInput.includes(keyword)) {
-        setErrorMessage('');
-        hideAuxDisplay();
-        onChoice({ text: normalizedInput, nextScene });
         setUserInput('');
         return;
       }
@@ -144,6 +178,10 @@ const GameScene: React.FC<GameSceneProps> = ({
   };
 
   const handleRetry = () => {
+    if (sceneId === SCENE_HYDRA_DEFEAT_FINAL && onHydraFailureRetry) {
+      onHydraFailureRetry();
+      return;
+    }
     if (onReset) {
       onReset();
     }
@@ -179,19 +217,15 @@ const GameScene: React.FC<GameSceneProps> = ({
       </div>
 
       {/* GAMEOVER */}
-      {'type' in scene && scene.type === 'game_over' && <GameOver onRetry={handleRetry} />}
+      {'type' in scene && scene.type === 'game_over' && (
+        <GameOver onRetry={handleRetry} isHydraFailure={sceneId === SCENE_HYDRA_DEFEAT_FINAL} />
+      )}
 
       {/* Scene container */}
       <div className={`${styles.GameScene} ${fade ? 'fadeIn' : 'fadeOut'}`}>
         <SceneText sceneText={sceneText} />
 
-        {'choices' in scene ? (
-          <ChoicesContainer
-            character={character}
-            onChoice={onChoice}
-            scene={scene as MultipleChoiceScene}
-          />
-        ) : (
+        {'type' in scene && scene.type === 'text_input' ? (
           <PromptContainer
             cursorOffset={cursorOffset}
             errorMessage={errorMessage}
@@ -203,7 +237,13 @@ const GameScene: React.FC<GameSceneProps> = ({
             scenePromptRef={scenePromptRef}
             userInput={userInput}
           />
-        )}
+        ) : 'choices' in scene && scene.choices && scene.choices.length > 0 ? (
+          <ChoicesContainer
+            character={character}
+            onChoice={onChoice}
+            scene={scene as MultipleChoiceScene}
+          />
+        ) : null}
       </div>
 
       {/* Aux display */}

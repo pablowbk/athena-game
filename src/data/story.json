@@ -47,11 +47,6 @@
       "type": "text_input",
       "text": "scenes.tutorial.base",
       "prompt": "prompt.what_to_do",
-      "characterSpecificText": {
-        "wizard": "scenes.tutorial.wizard",
-        "hero": "scenes.tutorial.hero",
-        "thief": "scenes.tutorial.thief"
-      },
       "keywords": {
         "examine scroll": "scroll_examined",
         "look at scroll": "scroll_examined",
@@ -79,10 +74,18 @@
         "interact with door": "door_locked",
         "activate door": "door_locked",
         "open door": "door_locked",
+        "open the door": "door_locked",
+        "go through door": "door_locked",
+        "go to door": "door_locked",
+        "leave room": "door_locked",
         "usar puerta": "door_locked",
         "utilizar puerta": "door_locked",
         "activar puerta": "door_locked",
-        "abrir puerta": "door_locked"
+        "abrir puerta": "door_locked",
+        "abrir la puerta": "door_locked",
+        "ir a la puerta": "door_locked",
+        "atravesar puerta": "door_locked",
+        "salir": "door_locked"
       }
     },
     "scroll_examined": {
@@ -92,12 +95,19 @@
       "keywords": {
         "door": "door_locked",
         "open door": "door_locked",
+        "open the door": "door_locked",
+        "go through door": "door_locked",
+        "go to door": "door_locked",
         "take scroll": "scroll_taken",
         "pick up scroll": "scroll_taken",
         "grab scroll": "scroll_taken",
         "use scroll": "scroll_taken",
         "usar pergamino": "scroll_taken",
         "abrir puerta": "door_locked",
+        "abrir la puerta": "door_locked",
+        "ir a la puerta": "door_locked",
+        "atravesar puerta": "door_locked",
+        "salir": "door_locked",
         "tomar pergamino": "scroll_taken",
         "coger pergamino": "scroll_taken",
         "agarrar pergamino": "scroll_taken"
@@ -110,7 +120,14 @@
       "keywords": {
         "door": "door_locked",
         "open door": "door_locked",
-        "abrir puerta": "door_locked"
+        "open the door": "door_locked",
+        "go through door": "door_locked",
+        "go to door": "door_locked",
+        "abrir puerta": "door_locked",
+        "abrir la puerta": "door_locked",
+        "ir a la puerta": "door_locked",
+        "atravesar puerta": "door_locked",
+        "salir": "door_locked"
       }
     },
     "door_locked": {

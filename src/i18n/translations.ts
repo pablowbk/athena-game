@@ -115,7 +115,10 @@ export const translations = {
       title: 'GAME OVER',
       message:
         'The Hydra proved too powerful this time. But perhaps another hero, with a different approach, might succeed where you failed...',
+      hydraFailureMessage:
+        'Without the right tool at the decisive moment, the Hydra overwhelms you. Athena can send you back to choose the trial again — prepare and use what you gathered.',
       tryAgain: 'Try again',
+      tryAgainAthena: "Return to Athena's quest",
     },
 
     // Available commands
@@ -205,6 +208,9 @@ export const translations = {
       game_over: {
         try_again: 'Try Again',
       },
+      quest_complete: {
+        restart: 'Start a new adventure',
+      },
     },
 
     // Scene texts
@@ -216,12 +222,8 @@ export const translations = {
         text: "You awaken to the faint glow of runes etched into towering stone columns. The air is cool and carries the scent of ancient stone. Your mind is clouded, memories slipping through your grasp like sand. As you take in your surroundings, the murals on the walls (depicting epic battles between gods and mortals) seem to call to you. A faint whisper echoes in your mind, a voice not your own: 'This is the Hall of Trials, where heroes are chosen and destinies are forged.' Though you cannot recall how you arrived here, a sense of purpose stirs within you. Your adventure is about to begin.",
       },
       tutorial: {
-        base: 'You find yourself in a small chamber within an ancient temple. Sunlight filters through a high window, illuminating dust motes that dance in the air. The walls are adorned with faded frescoes depicting the gods of Olympus. A wooden table stands in the corner, and upon it rests an old scroll. The only exit is a heavy bronze door.',
-        wizard:
-          "The air tingles with ancient magic, and your arcane senses detect faint traces of protective enchantments woven into the temple's stones. A wooden table holds what appears to be a magical scroll.",
-        hero: "Your warrior instincts tell you this is a place of great significance. The temple's architecture speaks of strength and endurance. A scroll on a nearby table catches your attention.",
-        thief:
-          'Your keen eyes quickly assess the chamber. The high window could serve as an escape route if needed. More immediately interesting is a scroll on a wooden table - it might be valuable.',
+        base:
+          'You find yourself in a small chamber within an ancient temple. Sunlight filters through a high window, illuminating dust motes that dance in the air. The walls are adorned with faded frescoes depicting the gods of Olympus. Opposite you, set deep in the stone, stands a heavy bronze door—its seams dark with age, clearly the only way through to whatever lies beyond. In the corner, a wooden table holds an old scroll. You can pause to study or take the scroll, or cross the threshold by opening the door whenever you choose.',
       },
       scroll_examined: {
         text: 'The scroll contains a simple message: \'To proceed on your journey, you must first learn to interact with the world. You may take this scroll with you if you wish - try commands like "take scroll". When you\'re ready to continue, try to "open door".\'',
@@ -245,12 +247,14 @@ export const translations = {
         text: 'The torches flicker and dim as the air grows thick with divine presence. A brilliant light erupts in the center of the chamber, coalescing into the majestic form of Athena, Goddess of Wisdom and Strategic Warfare. Her aegis gleams with otherworldly power, and her grey eyes pierce through you with the weight of millennia.\n\n"MORTAL," her voice resonates through both the chamber and your mind, each word carrying the authority of Olympus itself. "Your presence in this prison was ordained by the Fates themselves. The threads of destiny have been woven with purpose - the gods require a champion, and you have been chosen through divine trial."\n\nShe raises her spear, its tip igniting with celestial fire. "Three heroes stand at the crossroads of fate, each facing a trial that will shape the future of both gods and mortals. You must choose whose call to answer:"',
       },
       hercules_quest: {
-        base: 'You find Hercules at the edge of a murky swamp. The legendary hero stands ready for battle, his mighty club resting on his shoulder. In the distance, you can hear the hissing of the Hydra\'s many heads. "The beast grows two heads for each one cut," Hercules explains grimly. "We should study it before attacking."',
+        base:
+          "The world lurches; your boots find mud that sucks at your ankles. Heat and rot wrap around you—wet bark, stagnant water, and something sharper, like metal after lightning. Reeds part. There he is: a man built like a myth, leaning on a club as long as a young tree, gaze nailed to the grey-green distance.\n\nFrom the marsh comes a sound that is not one voice but many—hisses stacked on hiss, a cruel choir tuning itself.\n\nHercules does not look away. \"Cut one neck, win two,\" he says, flat as a law carved in stone. \"Bravado without a plan only feeds the swamp. If you're with me—watch first. Learn its rhythm before we answer it.\"",
         wizard:
-          "Your magical awareness reveals traces of divine energy emanating from the Hydra - this creature is more than just a monster, it's a manifestation of immortal power. Perhaps observing it will reveal its weaknesses.",
-        hero: "Your combat experience tells you this won't be a straightforward fight. The swamp terrain will make movement difficult, and the Hydra's multiple heads require careful tactical consideration. You should study its movements.",
+          "Between the reeds, power hums the way a harp string hums after it has been struck. The Hydra is not merely flesh; something Olympian thrums through it, old and patient. If you watch how the heads defer to one another, you may see where the spellwork frays.",
+        hero:
+          "Your legs already know this ground: soft, treacherous, ready to twist an ankle at the worst moment. The hiss comes from more throats than you can count at a glance. Charging in blind would be a gift to the beast—your instincts insist on patience, even while your pulse insists on something louder.",
         thief:
-          "Your keen eye spots patches of higher ground that could provide tactical advantages, and you notice the Hydra's movements follow distinct patterns. Taking time to observe might reveal opportunities.",
+          "Higher ground—rotted pilings, a fallen column—offers a line of sight the marsh would rather hide. The many heads move in turns, like sentries changing watch. There is a pattern; patterns are invitations, if you are rude enough to accept.",
       },
       dedalo_quest: {
         base: 'Daedalus greets you at the entrance of his infamous Labyrinth. The genius inventor appears troubled, his hands fidgeting with various mechanical devices. "The Minotaur has learned the maze\'s original paths," he whispers. "We must find a new way through."',
@@ -269,58 +273,72 @@ export const translations = {
           'The shadows here are different - deeper, more alive. But where there are guards and gates, there are always blind spots to exploit.',
       },
       hydra_study: {
-        base: 'You observe the Hydra from a safe distance. Its nine heads move with surprising coordination, and its scales gleam with an unnatural sheen. The swamp around it is littered with bones - evidence of failed attempts to defeat it. You should prepare before engaging it.',
+        base:
+          "You ease closer until the marsh lets you see without being seen. Nine throats weave through the air like a single thought split into jealous pieces; scales catch the light in a way flesh should not—too clean, too deliberate. Half-sunk helms and splintered shields mark older battles the swamp has not forgotten.\n\nThe lesson is ugly and simple: this is not a duel; it is a siege against a riddle that grows new riddles.\n\nHercules exhales through his teeth. \"See? It rewards hurry.\"",
         wizard:
-          "Your arcane knowledge recalls ancient texts about the Hydra's regenerative powers. Fire magic could prevent the heads from regenerating. You should look for a way to harness magical fire.",
-        hero: "Your tactical assessment reveals that conventional weapons alone won't work. The heads must be prevented from regenerating - perhaps with fire. There might be a way to prepare your weapon.",
+          "Old lectures surface unbidden: a wound that closes wrong unless fire finishes the argument. You do not need a library now—you need a spark that obeys you, not the monster.",
+        hero:
+          "Steel alone buys time, not victory. Every opening you imagine closes when you picture a stump blooming into two new jaws. You need heat—honest, binding heat—before you commit your weight to a swing.",
         thief:
-          "You notice the Hydra's heads follow a pattern when attacking. More importantly, you spot several ancient Greek fire pots hidden among the ruins. Setting up a trap could be effective.",
+          "The heads trade turns the way pickpockets trade signals. More usefully, clay gleams under moss—Greek fire pots, left like rude gifts among the ruins. A trap will not slay the thing outright, but it can buy the one second that matters.",
       },
       hydra_preparation: {
-        base: 'Hercules nods approvingly at your caution. "Yes, we must prepare properly. The Hydra cannot be defeated by strength alone."',
+        base:
+          'Hercules\'s grin is grim, but real. "Good. Hunger is loud; discipline is quiet." He taps his club once against his palm. "We give it a story it has not heard—fire first, then force."',
         wizard:
-          "You spot an ancient staff crackling with fire magic - perfect for casting spells to cauterize the Hydra's wounds. You could take the staff.",
-        hero: "There's a brazier nearby where you could imbue your sword with sacred fire. Preparing your sword with fire might be the key.",
+          "Half-buried in silt, a staff sleeps with ember veins crawling its length. When you close your fingers, the wood answers like a held breath. This is not showy magic; it is the kind that cauterizes lies.",
+        hero:
+          "A brazier still breathes on a cracked plinth—coals sleeping under ash. Your blade remembers bronze; let it learn flame. When you pass steel through the heat, the air tastes briefly of oaths kept.",
         thief:
-          'You notice several positions where you could place the Greek fire pots for a clever trap. Setting up the trap carefully could give you an advantage.',
+          "You map the ground the way you would map a vault: sight lines, splash zones, where panic will send a bulk of scales and muscle. The pots settle into their places with a thief's patience—innocent until the moment they are not.",
       },
       hydra_equipment: {
-        base: 'You gather what you need for the battle ahead. Hercules watches approvingly, his own club ready.',
-        wizard: 'The fire staff pulses with power in your hands, ready to channel your spells.',
-        hero: 'Your sword glows with sacred fire, its heat matching your determination.',
+        base:
+          "The marsh holds its breath. Hercules rolls his shoulders; you feel the myth beside you tighten like a drawn cord. Whatever you gathered is no longer \"equipment\"—it is a promise you will have to keep in public.",
+        wizard:
+          "The staff's warmth climbs your wrists. Sparks fret at the ferrule as if eager to be introduced.",
+        hero:
+          "Heat crawls along the fuller of your sword in a steady line. The weight in your hands feels honest—earned, not given.",
         thief:
-          "You've carefully arranged the Greek fire pots, creating the perfect setup for your plan.",
+          "Trip lines of intent, not rope: angles, timing, the cruel arithmetic of splash and stumble. You have stacked the odds; now the world gets to argue.",
       },
       hydra_battle: {
-        base: 'The Hydra towers before you, its many heads hissing in anticipation. Hercules stands ready with his club. This is the moment of truth.',
+        base:
+          "The Hydra rises as if the marsh were merely its cloak. Heads lift, testing the air; tongues flick like questions you do not want to answer. Hercules plants his feet. \"Now,\" he says softly—permission, warning, dare.\n\nYour next move will name you.",
         wizard:
-          'The staff of fire thrums with power, waiting for your command to unleash its magic. You could cast a fire spell.',
-        hero: 'Your sword glows brightly with sacred fire, ready to strike. You could use the fire-imbued weapon.',
+          "The staff hums against your palms, a single note held too long. One word of power, one disciplined arc—if you speak, speak cleanly.",
+        hero:
+          "Flame licks along the guard and kisses your knuckles—not to burn, but to remind. The opening you want is narrow; your strike must be narrower.",
         thief:
-          'Your traps are perfectly positioned. You could trigger them at just the right moment.',
+          "The field is set. The beast believes the story is about teeth. You intend to change the genre.",
       },
       hydra_victory: {
-        base: 'The Hydra falls at last! Hercules beams with pride. "Well done, champion! The gods chose wisely."',
+        base:
+          "The last great hiss thins into rain and heavy breathing. The Hydra's many voices stop negotiating. The swamp sounds too loud afterward—frogs, dripping reeds, your own pulse.\n\nHercules claps your shoulder hard enough to sting. \"That,\" he says, voice rough with relief, \"is how a trial ends when a mortal remembers to think.\"",
         wizard:
-          "Your fire magic proved decisive, preventing the Hydra's regeneration and ensuring victory.",
-        hero: 'Your flaming sword technique was perfect, each strike final and true.',
+          "Where fire sealed the work, nothing new uncurls to mock you. Magic, for once, feels like simple justice.",
+        hero:
+          "Each blow you chose landed like a period at the end of a sentence. The beast did not get to rewrite the paragraph.",
         thief:
-          'Your clever use of Greek fire traps worked brilliantly, leading the Hydra to its own defeat.',
+          "The trap did not steal the glory—it bought the opening. The Hydra's own momentum finished what your nerve started.",
       },
       hydra_defeat: {
         first_try:
-          "The Hydra's heads snap at you, but you manage to dodge back. That was close! Perhaps attacking directly isn't the best approach...",
+          "Jaws snap where your shadow was a heartbeat ago. You skid back, mud painting your cloak; laughter bubbles up anyway—thin, shocked, alive. Brute speed is the story the Hydra loves best. Refuse to tell it.",
         second_try:
-          'Two heads strike where one did before. You barely escape, your confidence shaken. There must be a better way to defeat this beast.',
+          "Two throats coordinate where one merely lunged. You escape by inches that feel stolen. The marsh seems wider, the monster larger; your pride, quieter. There is a smarter sequence here—if you survive long enough to find it.",
         final:
-          "As you strike the Hydra, two new heads grow where one fell. Overwhelmed by the increasing number of heads, you try to retreat, but it's too late.",
+          "Your strike lands—and the swamp answers with a cruel miracle: new heads surge where old ones fell, a living knot tightening. You try to break away; the marsh catches your heel. The last thing you hear is the choir of hiss again, closer than fair.",
       },
       quest_complete: {
-        text: 'Congratulations! You have completed your quest and proven yourself a true hero.',
-        wizard: 'The wisdom of the arcane has guided you to victory. Athena smiles upon you.',
-        hero: 'Your bravery and strength have brought glory to Olympus. Athena is proud.',
+        text:
+          "Light gathers as if dawn remembered an appointment. The trial is behind you; the path home unspools through myth and mist alike. You have earned a quiet that feels heavier than applause.",
+        wizard:
+          "Athena's regard is not a shout—it is a steady hand on the scale. Wisdom, you suspect, is simply refusing to be surprised by the same trap twice.",
+        hero:
+          "Glory, when it comes, tastes like clean air after smoke. Olympus does not need a speech from you; it already read what you did.",
         thief:
-          'Your cunning and skill have turned the tide of fate. Athena acknowledges your craft.',
+          "The gods love a clever exit as much as a bold entrance. Let them argue which you offered; you know the truth is both.",
       },
     },
 
@@ -446,7 +464,10 @@ export const translations = {
       title: 'FIN DEL JUEGO',
       message:
         'La Hidra demostró ser demasiado poderosa esta vez. Pero quizás otro héroe, con un enfoque diferente, podría tener éxito donde tú fallaste...',
+      hydraFailureMessage:
+        'Sin la herramienta adecuada en el momento decisivo, la Hidra te abruma. Atenea puede devolverte a elegir la prueba otra vez: prepárate y usa lo que reuniste.',
       tryAgain: 'Intentar de nuevo',
+      tryAgainAthena: 'Volver a la misión de Atenea',
     },
 
     // Available commands
@@ -503,7 +524,8 @@ export const translations = {
     // Prompts and choices
     prompt: {
       what_to_do: '¿Qué quieres hacer?',
-      hydra_quest: '¿Qué quieres hacer?',
+      hydra_quest:
+        '¿Qué haces? Puedes intentar: examinar hidra, preparar arma o atacar hidra (este último es arriesgado).',
       help: "Escribe 'ayuda' en cualquier momento para ver los comandos disponibles",
     },
     choices: {
@@ -542,6 +564,9 @@ export const translations = {
       game_over: {
         try_again: 'Elegir un Nuevo Héroe',
       },
+      quest_complete: {
+        restart: 'Comenzar una nueva aventura',
+      },
     },
 
     // Scene texts
@@ -553,12 +578,8 @@ export const translations = {
         text: "Te despiertas con el tenue resplandor de runas grabadas en imponentes columnas de piedra. El aire es fresco y lleva el aroma de la piedra antigua. Tu mente está nublada, los recuerdos se escapan de tu alcance como arena entre los dedos. Mientras observas tu entorno, los murales en las paredes (que representan batallas épicas entre dioses y mortales) parecen llamarte. Un susurro tenue resuena en tu mente, una voz que no es la tuya: 'Este es el Salón de las Pruebas, donde se eligen héroes y se forjan destinos.' Aunque no puedes recordar cómo llegaste aquí, un sentido de propósito se despierta en ti. Tu aventura está a punto de comenzar.",
       },
       tutorial: {
-        base: 'Te encuentras en una pequeña cámara dentro de un antiguo templo. La luz del sol se filtra por una ventana alta, iluminando motas de polvo que danzan en el aire. Las paredes están adornadas con frescos descoloridos que representan a los dioses del Olimpo. Una mesa de madera se encuentra en la esquina, y sobre ella descansa un viejo pergamino. La única salida es una pesada puerta de bronce.',
-        wizard:
-          'El aire vibra con magia antigua, y tus sentidos arcanos detectan tenues rastros de encantamientos protectores tejidos en las piedras del templo. Una mesa de madera sostiene lo que parece ser un pergamino mágico.',
-        hero: 'Tus instintos de guerrero te dicen que este es un lugar de gran importancia. La arquitectura del templo habla de fuerza y resistencia. Un pergamino en una mesa cercana llama tu atención.',
-        thief:
-          'Tus ojos agudos evalúan rápidamente la cámara. La ventana alta podría servir como ruta de escape si fuera necesario. Más interesante es un pergamino sobre una mesa de madera - podría ser valioso.',
+        base:
+          'Te encuentras en una pequeña cámara dentro de un antiguo templo. La luz del sol se filtra por una ventana alta, iluminando motas de polvo que danzan en el aire. Las paredes están adornadas con frescos descoloridos que representan a los dioses del Olimpo. Frente a ti, encajada en la piedra, hay una pesada puerta de bronce: juntas oscurecidas por el tiempo, y tan claramente el único paso hacia lo que venga después. En un rincón, una mesa de madera sostiene un viejo pergamino. Puedes detenerte a examinarlo o llevártelo, o atravesar el umbral abriendo la puerta cuando quieras.',
       },
       scroll_examined: {
         text: 'El pergamino contiene un mensaje simple: \'Para continuar tu viaje, primero debes aprender a interactuar con el mundo. Puedes llevar este pergamino contigo si lo deseas - prueba comandos como "tomar pergamino". Cuando estés listo para continuar, intenta "abrir puerta".\'',
@@ -582,12 +603,14 @@ export const translations = {
         text: 'Las antorchas parpadean y se atenúan mientras el aire se vuelve denso con presencia divina. Una luz brillante erupciona en el centro de la cámara, transformándose en la majestuosa forma de Atenea, Diosa de la Sabiduría y la Guerra Estratégica. Su égida resplandece con poder sobrenatural, y sus ojos grises te atraviesan con el peso de milenios.\n\n"MORTAL," su voz resuena tanto en la cámara como en tu mente, cada palabra portando la autoridad del Olimpo mismo. "Tu presencia en esta prisión fue ordenada por las Moiras. Los hilos del destino han sido tejidos con propósito - los dioses requieren un campeón, y tú has sido elegido mediante prueba divina."\n\nLevanta su lanza, cuya punta se enciende con fuego celestial. "Tres héroes se encuentran en la encrucijada del destino, cada uno enfrentando una prueba que moldeará el futuro tanto de dioses como de mortales. Debes elegir a cuál responder:"',
       },
       hercules_quest: {
-        base: 'Encuentras a Hércules al borde de un pantano oscuro. El legendario héroe está listo para la batalla, su poderosa clava descansando sobre su hombro. En la distancia, puedes oír el siseo de las múltiples cabezas de la Hidra. "La bestia crece dos cabezas por cada una cortada," explica Hércules sombríamente. "Deberíamos estudiarla antes de atacar."',
+        base:
+          'El mundo da un tirón; tus botas encuentran barro que te lame los tobillos. Calor, podredumbre y un filo en el aire—como metal después de un rayo. Los juncos se abren. Ahí está: un hombre tallado como un mito, apoyado en una clava larga como un árbol joven, la mirada clavada en la lejanía verdosa del pantano.\n\nDel pantano llega un sonido que no es una voz sino muchas: siseos encimados, un coro grosero que afina las cuerdas.\n\nHércules no aparta los ojos. «Cortas un cuello, te devuelve dos», dice, plano como ley grabada en piedra. «El heroísmo sin plan solo alimenta el pantano. Si vienes conmigo, primero miramos. Aprendemos su ritmo antes de contestarle.»',
         wizard:
-          'Tu conciencia mágica revela rastros de energía divina emanando de la Hidra - esta criatura es más que un monstruo, es una manifestación de poder inmortal. Quizás observarla revele sus debilidades.',
-        hero: 'Tu experiencia en combate te dice que esta no será una pelea directa. El terreno pantanoso dificultará el movimiento, y las múltiples cabezas de la Hidra requieren una consideración táctica cuidadosa. Deberías estudiar sus movimientos.',
+          'Entre los juncos vibra un poder como la cuerda de un arpa después de pulsarse. La Hidra no es solo carne; algo olímpico late en ella, viejo y paciente. Si observas cómo las cabezas se ceden el turno, quizá veas dónde se deshilacha el encantamiento.',
+        hero:
+          'Tus piernas ya conocen este suelo: blando, traicionero, listo para torcerte el tobillo en el peor momento. El siseo viene de más gargantas de las que puedes contar de un vistazo. Lanzarte a ciegas sería un regalo para la bestia: tus instintos gritan paciencia aunque el pulso pida otra cosa.',
         thief:
-          'Tu ojo agudo detecta zonas de terreno elevado que podrían proporcionar ventajas tácticas, y notas que los movimientos de la Hidra siguen patrones distintos. Tomar tiempo para observar podría revelar oportunidades.',
+          'Terreno alto—pilotes podridos, una columna caída—te da una línea de visión que el pantano preferiría ocultar. Las cabezas se mueven por turnos, como centinelas que cambian guardia. Hay patrón; los patrones son invitaciones, si uno es bastante grosero para aceptarlas.',
       },
       dedalo_quest: {
         base: 'Dédalo te recibe en la entrada de su infame Laberinto. El genio inventor parece preocupado, sus manos jugueteando con varios dispositivos mecánicos. "El Minotauro ha aprendido los caminos originales del laberinto," susurra. "Debemos encontrar una nueva ruta."',
@@ -606,52 +629,72 @@ export const translations = {
           'Las sombras aquí son diferentes - más profundas, más vivas. Pero donde hay guardias y puertas, siempre hay puntos ciegos que explotar.',
       },
       hydra_study: {
-        base: 'Observas a la Hidra desde una distancia segura. Sus nueve cabezas se mueven con sorprendente coordinación, y sus escamas brillan con un resplandor antinatural. El pantano a su alrededor está lleno de huesos - evidencia de intentos fallidos por derrotarla. Deberías prepararte antes de enfrentarla.',
+        base:
+          'Te acercas hasta que el pantano te deja ver sin ser visto. Nueve gargantas surcan el aire como un solo pensamiento partido en celos; las escamas captan la luz de un modo que la carne no debería—demasiado limpio, demasiado deliberado. Yelmos hundidos y escudos astillados marcan batallas viejas que el barro aún reclama.\n\nLa lección es fea y simple: esto no es un duelo; es un asedio contra un acertijo que fabrica acertijos.\n\nHércules suelta el aire entre dientes. «¿Ves? Premia la prisa.»',
         wizard:
-          'Tu conocimiento arcano recuerda antiguos textos sobre los poderes regenerativos de la Hidra. La magia de fuego podría evitar que las cabezas se regeneren. Deberías buscar una forma de utilizar fuego mágico.',
-        hero: 'Tu evaluación táctica revela que las armas convencionales no funcionarán. Las cabezas deben ser impedidas de regenerarse - quizás con fuego. Podría haber una forma de preparar tu arma.',
+          'Viejos dictados resurgen solos: una herida que no cierra bien si el fuego no zanja el debate. No necesitas ahora una biblioteca—necesitas una chispa que te obedezca a ti, no al monstruo.',
+        hero:
+          'El acero solo compra tiempo, no victoria. Cada apertura que imaginas se cierra cuando piensas en un muñón que brota en dos nuevas fauces. Necesitas calor—calor serio, que ate—antes de comprometer el peso de un mandoble.',
         thief:
-          'Notas que las cabezas de la Hidra siguen un patrón al atacar. Más importante aún, detectas varias vasijas de fuego griego ocultas entre las ruinas. Preparar una trampa podría ser efectivo.',
+          'Las cabezas se ceden el turno como cómplices en un mercado. Más útil: el barro esconde ánforas—fuego griego—como regalos groseros entre ruinas. Una trampa no mata de golpe, pero puede regalar el segundo que importa.',
       },
       hydra_preparation: {
-        base: 'Hércules asiente aprobando tu cautela. "Sí, debemos prepararnos adecuadamente. La Hidra no puede ser derrotada solo con fuerza."',
+        base:
+          'La sonrisa de Hércules es sombría, pero real. «Bien. El hambre grita; la disciplina calla.» Golpea la clava una vez contra la palma. «Le daremos un cuento que no conoce: fuego primero, fuerza después.»',
         wizard:
-          'Detectas un antiguo bastón crepitando con magia de fuego - perfecto para lanzar hechizos que cauterizarán las heridas de la Hidra. Podrías tomar el bastón.',
-        hero: 'Hay un brasero cerca donde podrías imbuir tu espada con fuego sagrado. Preparar tu espada con fuego podría ser la clave.',
+          'Medio hundido en el cieno duerme un bastón con vetas de ascua. Cuando cierras los dedos, la madera responde como un aliento contenido. No es magia de feria; es la clase que cauteriza mentiras.',
+        hero:
+          'Un brasero aún respira sobre un plinto rajado—brasas dormidas bajo ceniza. Tu hoja conoce el bronce; que aprenda la llama. Al pasar el acero por el calor, el aire sabe un instante a juramentos cumplidos.',
         thief:
-          'Notas varias posiciones donde podrías colocar las vasijas de fuego griego para una trampa ingeniosa. Preparar la trampa cuidadosamente podría darte una ventaja.',
+          'Cartografías el terreno como bóveda: líneas de vista, charcos de salpicadura, adónde huirá el bulto de escamas si entra el pánico. Las vasijas encajan con paciencia de ladrón—inocentes hasta el instante en que no lo son.',
       },
       hydra_equipment: {
-        base: 'Reúnes lo necesario para la batalla que se avecina. Hércules observa con aprobación, su propia clava lista.',
+        base:
+          'El pantano contiene el aliento. Hércules se acomoda los hombros; sientes al mito tensarse al lado como cuerda armada. Lo que reuniste ya no es «equipo»—es una promesa que tendrás que cumplir delante de todos.',
         wizard:
-          'El bastón de fuego pulsa con poder en tus manos, listo para canalizar tus hechizos.',
-        hero: 'Tu espada brilla con fuego sagrado, su calor igualando tu determinación.',
+          'El calor del bastón sube por las muñecas. Chispas impacientes roen la ferralla, como queriendo presentarse.',
+        hero:
+          'El fuego recorre el fuller de tu espada en una línea firme. El peso en tus manos se siente honesto—ganado, no regalado.',
         thief:
-          'Has dispuesto cuidadosamente las vasijas de fuego griego, creando la preparación perfecta para tu plan.',
+          'Líneas de intención, no de cuerda: ángulos, tiempo, la aritmética cruel del chapoteo y el tropiezo. Apilaste ventajas; ahora el mundo discute.',
       },
       hydra_battle: {
-        base: 'La Hidra se alza ante ti, sus múltiples cabezas silbando en anticipación. Hércules está listo con su clava. Este es el momento de la verdad.',
+        base:
+          'La Hidra se alza como si el pantano fuera solo su manto. Cabezas se yerguen, probando el aire; lenguas van y vienen como preguntas que no quieres contestar. Hércules planta los pies. «Ahora», dice bajo—permiso, aviso, desafío.\n\nTu próximo movimiento te pondrá nombre.',
         wizard:
-          'El bastón de fuego vibra con poder, esperando tu orden para desatar su magia. Podrías lanzar un hechizo de fuego.',
-        hero: 'Tu espada brilla intensamente con fuego sagrado, lista para golpear. Podrías usar el arma imbuida con fuego.',
+          'El bastón vibra contra las palmas, una sola nota sostenida demasiado tiempo. Una palabra de poder, un arco disciplinado—si hablas, que sea limpio.',
+        hero:
+          'La llama lame la cruceta y besa los nudillos—no para quemar, sino para recordar. La apertura que buscas es estrecha; tu golpe debe serlo más.',
         thief:
-          'Tus trampas están perfectamente posicionadas. Podrías activarlas en el momento justo.',
+          'El tablero está puesto. La bestia cree que el cuento va de dientes. Tú piensas cambiar de género.',
       },
       hydra_victory: {
-        base: '¡La Hidra cae por fin! Hércules sonríe con orgullo. "¡Bien hecho, campeón! Los dioses eligieron sabiamente."',
+        base:
+          'El último gran siseo se diluye en lluvia fina y respiración pesada. Las muchas voces de la Hidra dejan de negociar. Después el pantano suena demasiado alto—ranas, juncos goteando, tu propio pulso.\n\nHércules te aplaude el hombro con fuerza de marcar. «Así», dice la voz áspera de alivio, «termina una prueba cuando un mortal recuerda pensar.»',
         wizard:
-          'Tu magia de fuego fue decisiva, previniendo la regeneración de la Hidra y asegurando la victoria.',
-        hero: 'Tu técnica con la espada llameante fue perfecta, cada golpe final y certero.',
+          'Donde el fuego selló el trabajo, nada nuevo se enrosca para burlarse. La magia, por una vez, sabe a justicia sencilla.',
+        hero:
+          'Cada golpe que elegiste cayó como punto final al final de una frase. La bestia no pudo reescribir el párrafo.',
         thief:
-          'Tu uso ingenioso de las trampas de fuego griego funcionó brillantemente, llevando a la Hidra a su propia derrota.',
+          'La trampa no robó el triunfo—compró la apertura. El empuje propio de la Hidra remató lo que tu nervio empezó.',
       },
       hydra_defeat: {
         first_try:
-          'Las cabezas de la Hidra te atacan, pero logras esquivarlas. ¡Eso estuvo cerca! Quizás atacar directamente no sea la mejor estrategia...',
+          'Fauces chasquean donde tu sombra estuvo hace un latido. Retrocedes patinando; el barro te pinta el manto. Una risa burbujea—fina, aturdida, viva. La furia pura es el cuento que la Hidra ama. Niega a contárselo.',
         second_try:
-          'Dos cabezas atacan donde antes había una. Apenas escapas, tu confianza se tambalea. Debe haber una mejor manera de derrotar a esta bestia.',
+          'Dos gargantas coordinan donde antes solo había un embate. Escapas por un margen que sabe a robo. El pantano parece más ancho, el monstruo más grande; tu orgullo, más bajo. Hay una secuencia más astuta—si vives lo suficiente para hallarla.',
         final:
-          'Mientras golpeas a la Hidra, dos nuevas cabezas crecen donde una cayó. Abrumado por el creciente número de cabezas, intentas retirarte, pero es demasiado tarde.',
+          'Tu golpe cae—y el pantano responde con un milagro cruel: nuevas cabezas brotan donde cayeron las viejas, un nudo viviente que aprieta. Intentas romper filas; el barro te atrapa el talón. Lo último que oyes es otra vez el coro de siseos, más cerca de lo justo.',
+      },
+      quest_complete: {
+        text:
+          'La luz se reúne como si el alba hubiera citado contigo. La prueba queda atrás; el camino de regreso se desenrolla entre niebla y mito. Te ganaste un silencio que pesa más que el aplauso.',
+        wizard:
+          'El favor de Atenea no es un grito—es una mano firme en la balanza. La sabiduría, sospechas, es negarse a sorprenderse dos veces por la misma trampa.',
+        hero:
+          'La gloria, cuando llega, sabe a aire limpio después del humo. El Olimpo no necesita tu discurso; ya leyó lo que hiciste.',
+        thief:
+          'A los dioses les gusta una salida astuta tanto como una entrada valiente. Que discutan cuál les diste; tú sabes que fue las dos.',
       },
     },
 

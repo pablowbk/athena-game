@@ -28,8 +28,6 @@ const PromptContainer: React.FC<PromptContainerProps> = ({
 }) => {
   const { t } = useLanguage();
 
-  console.log({ scene });
-
   return (
     <form onSubmit={handleTextInput} className={styles.textInput}>
       <p className={styles.promptInfo}>{t(scene.prompt)}</p>

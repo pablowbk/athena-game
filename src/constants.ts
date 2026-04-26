@@ -82,3 +82,36 @@ export const itemRestrictions = {
   'fire-sword': 'hero',
   'greek-fire': 'thief',
 };
+
+/** Myth items used at the Hydra finale; removed on victory or failure retry. */
+export const MYTH_HYDRA_ITEM_IDS = ['staff', 'fire-sword', 'greek-fire'] as const;
+export type MythHydraItemId = (typeof MYTH_HYDRA_ITEM_IDS)[number];
+
+/**
+ * Keywords in `hydra_battle` that lead to victory — each requires the matching inventory id.
+ * Keeps parser synonyms from bypassing inventory (e.g. "activate staff" without the staff).
+ */
+export const HYDRA_VICTORY_KEYWORD_REQUIRED_ITEM: Record<string, MythHydraItemId> = {
+  'use staff': 'staff',
+  'activate staff': 'staff',
+  'operate staff': 'staff',
+  'usar baston': 'staff',
+  'utilizar baston': 'staff',
+  'activar baston': 'staff',
+  'use sword': 'fire-sword',
+  'activate sword': 'fire-sword',
+  'operate sword': 'fire-sword',
+  'usar espada': 'fire-sword',
+  'utilizar espada': 'fire-sword',
+  'activar espada': 'fire-sword',
+  'use trap': 'greek-fire',
+  'activate trap': 'greek-fire',
+  'trigger trap': 'greek-fire',
+  'usar trampa': 'greek-fire',
+  'utilizar trampa': 'greek-fire',
+  'activar trampa': 'greek-fire',
+};
+
+export const SCENE_HYDRA_DEFEAT_FINAL = 'hydra_defeat_final';
+export const SCENE_HYDRA_VICTORY = 'hydra_victory';
+export const SCENE_ATHENA_QUEST = 'athena_appears';
