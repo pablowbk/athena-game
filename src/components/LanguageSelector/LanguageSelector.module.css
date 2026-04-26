@@ -1,34 +1,73 @@
-.selector {
+.group {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.button {
   padding: var(--btn-padding);
   background-color: var(--bg-darker);
-  border: 1px solid var(--border-color);
+  border: 2px solid var(--border-color);
   color: var(--text-color);
   font-family: var(--font-family);
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease,
+    transform 0.2s ease;
   min-width: 45px;
   text-align: center;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   font-size: 1rem;
+  line-height: 1.2;
+  border-radius: 2px;
 }
 
-.selector:hover,
-.selector:focus {
-  border-color: var(--border-color);
-  box-shadow: 0 0 10px var(--glow-color);
+/* Inactive: clearly secondary */
+.button[data-active='false'] {
+  border-color: var(--text-dim);
+  opacity: 0.55;
+  box-shadow: none;
+}
+
+.button[data-active='false']:hover,
+.button[data-active='false']:focus {
+  opacity: 0.85;
+  border-color: var(--text-muted);
+  box-shadow: 0 0 6px rgba(51, 255, 51, 0.2);
   outline: none;
 }
 
-.selector:focus-visible {
+.button[data-active='false']:focus-visible {
   box-shadow:
     0 0 0 2px var(--bg-darker),
-    0 0 0 4px var(--border-color);
+    0 0 0 4px var(--text-dim);
 }
 
-.selector option {
-  background-color: var(--bg-darker);
-  color: var(--text-color);
-  text-align: center;
+/* Active: filled chip, strong border */
+.button[data-active='true'] {
+  opacity: 1;
+  border-color: var(--primary-color);
+  background-color: rgba(51, 255, 51, 0.14);
+  box-shadow:
+    0 0 14px var(--glow-color),
+    inset 0 0 20px rgba(51, 255, 51, 0.06);
+  transform: scale(1.06);
+}
+
+.button[data-active='true']:hover,
+.button[data-active='true']:focus {
+  border-color: var(--primary-color);
+  box-shadow:
+    0 0 18px var(--glow-color),
+    inset 0 0 24px rgba(51, 255, 51, 0.08);
+  outline: none;
+}
+
+.button[data-active='true']:focus-visible {
+  box-shadow:
+    0 0 0 2px var(--bg-darker),
+    0 0 0 4px var(--primary-color),
+    0 0 14px var(--glow-color);
 }

@@ -1,21 +1,40 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import type { Language } from '../../i18n/translations';
 import styles from './LanguageSelector.module.css';
+
+const LANGUAGES: { code: Language; label: string; flag: string }[] = [
+  { code: 'en', label: 'English', flag: '\u{1F1EC}\u{1F1E7}' },
+  { code: 'es', label: 'Español', flag: '\u{1F1E6}\u{1F1F7}' },
+];
 
 const LanguageSelector: React.FC = () => {
   const { language, setLanguage } = useLanguage();
 
   return (
-    <select
-      className={styles.selector}
-      value={language}
-      onChange={(e) => setLanguage(e.target.value as 'en' | 'es')}
-      aria-label="Select language"
+    <div
+      className={styles.group}
+      role="group"
+      aria-label="Language"
     >
-      <option value="en">&#x1F1EC;&#x1F1E7;</option>
-      <option value="es">&#x1F1E6;&#x1F1F7;</option>
-    </select>
+      {LANGUAGES.map(({ code, label, flag }) => {
+        const selected = code === language;
+        return (
+          <button
+            key={code}
+            type="button"
+            className={styles.button}
+            data-active={selected}
+            aria-pressed={selected}
+            aria-label={selected ? `${label}, selected` : label}
+            onClick={() => setLanguage(code)}
+          >
+            {flag}
+          </button>
+        );
+      })}
+    </div>
   );
 };
 
-export default LanguageSelector; 
+export default LanguageSelector;
