@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { Character, Choice, CharacterType } from '../../types/game';
 import { characterIcons } from '../../assets/images/placeholders';
+import { GAME_SCENE } from '../../constants';
 import styles from './CharacterSelection.module.css';
 
 interface CharacterSelectionProps {
@@ -16,7 +17,7 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({ characters, onS
   const [skipTutorial, setSkipTutorial] = useState(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const nextScene = skipTutorial ? 'intro' : 'onboarding';
+  const nextScene = skipTutorial ? GAME_SCENE.INTRO : GAME_SCENE.ONBOARDING;
 
   const focusInput = () => {
     if (inputRef.current) {

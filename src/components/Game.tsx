@@ -7,12 +7,12 @@ import CharacterSelection from './CharacterSelection/CharacterSelection';
 import Onboarding from './Onboarding/Onboarding';
 import GameScene from './GameScene/GameScene';
 import styles from './Game.module.css';
-import { STORAGE_KEY, ITEM_PICKUP_COMMANDS, SPECIAL_ACTIONS } from '../constants';
+import { STORAGE_KEY, ITEM_PICKUP_COMMANDS, SPECIAL_ACTIONS, GAME_SCENE } from '../constants';
 
 const typedStoryData = storyData as StoryData;
 
 const initialGameState: GameState = {
-  currentScene: 'title',
+  currentScene: GAME_SCENE.TITLE,
   inventory: [],
   visitedScenes: new Set(),
 };
@@ -24,11 +24,11 @@ const Game: React.FC = () => {
     if (savedState) {
       const parsed = JSON.parse(savedState);
       // Only restore saved state if we're not at title or character selection
-      if (parsed.currentScene !== 'title' && parsed.currentScene !== 'start') {
+      if (parsed.currentScene !== GAME_SCENE.TITLE && parsed.currentScene !== GAME_SCENE.START) {
         return {
           ...parsed,
           visitedScenes: new Set(parsed.visitedScenes),
-          currentScene: 'title',
+          currentScene: GAME_SCENE.TITLE,
           savedScene: parsed.currentScene,
         };
       }
@@ -40,9 +40,9 @@ const Game: React.FC = () => {
   useEffect(() => {
     // Don't save state during title screen or character selection
     if (
-      gameState.currentScene === 'title' ||
-      gameState.currentScene === 'start' ||
-      gameState.currentScene === 'onboarding'
+      gameState.currentScene === GAME_SCENE.TITLE ||
+      gameState.currentScene === GAME_SCENE.START ||
+      gameState.currentScene === GAME_SCENE.ONBOARDING
     ) {
       return;
     }
@@ -65,12 +65,12 @@ const Game: React.FC = () => {
   }, []);
 
   const currentScene =
-    gameState.currentScene === 'title'
+    gameState.currentScene === GAME_SCENE.TITLE
       ? null
       : (typedStoryData.scenes[gameState.currentScene] as Scene);
 
   const handleChoice = (choice: Choice, playerName?: string) => {
-    if (gameState.currentScene === 'start') {
+    if (gameState.currentScene === GAME_SCENE.START) {
       const characterType = choice.text.toLowerCase().includes('wizard')
         ? 'wizard'
         : choice.text.toLowerCase().includes('hero')
@@ -134,7 +134,7 @@ const Game: React.FC = () => {
 
   const handleStart = () => {
     // set nextScene to 'start' unless there are are visited scenes in which case we want to get the last visited scene
-    const nextScene = gameState.savedScene ? gameState.savedScene : 'start';
+    const nextScene = gameState.savedScene ? gameState.savedScene : GAME_SCENE.START;
     setGameState((prev) => ({
       ...prev,
       currentScene: nextScene,
@@ -145,7 +145,7 @@ const Game: React.FC = () => {
   // Soft reset - keeps player name but resets progress
   const handleSoftReset = () => {
     setGameState((prev) => ({
-      currentScene: 'start',
+      currentScene: GAME_SCENE.START,
       inventory: [],
       visitedScenes: new Set(),
       playerName: prev.playerName, // Keep the player name
@@ -180,17 +180,17 @@ const Game: React.FC = () => {
       {/* bg blob */}
       <div className={styles.blob}></div>
       {/* Game state */}
-      {gameState.currentScene === 'title' ? (
+      {gameState.currentScene === GAME_SCENE.TITLE ? (
         <StartScreen onStart={handleStart} hasSavedGame={!!gameState.savedScene} />
-      ) : gameState.currentScene === 'start' ? (
+      ) : gameState.currentScene === GAME_SCENE.START ? (
         <CharacterSelection characters={typedStoryData.characters} onSelect={handleChoice} />
-      ) : gameState.currentScene === 'onboarding' && gameState.character ? (
+      ) : gameState.currentScene === GAME_SCENE.ONBOARDING && gameState.character ? (
         <Onboarding
           onComplete={() =>
             setGameState((prev) => ({
               ...prev,
-              currentScene: 'intro',
-              visitedScenes: new Set([...prev.visitedScenes, 'intro']),
+              currentScene: GAME_SCENE.INTRO,
+              visitedScenes: new Set([...prev.visitedScenes, GAME_SCENE.INTRO]),
             }))
           }
         />
