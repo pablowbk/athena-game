@@ -13,9 +13,10 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({ characters, onS
   const { t } = useLanguage();
   const [playerName, setPlayerName] = useState('');
   const [error, setError] = useState(false);
+  const [skipTutorial, setSkipTutorial] = useState(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const nextScene = 'intro';
+  const nextScene = skipTutorial ? 'intro' : 'onboarding';
 
   const focusInput = () => {
     if (inputRef.current) {
@@ -115,6 +116,15 @@ const CharacterSelection: React.FC<CharacterSelectionProps> = ({ characters, onS
           </div>
         ))}
       </div>
+
+      <label className={styles.skipTutorial}>
+        <input
+          type="checkbox"
+          checked={skipTutorial}
+          onChange={(e) => setSkipTutorial(e.target.checked)}
+        />
+        <span>{t('skipTutorial')}</span>
+      </label>
     </section>
   );
 };

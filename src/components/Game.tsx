@@ -4,6 +4,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import storyData from '../data/story.json';
 import StartScreen from './StartScreen/StartScreen';
 import CharacterSelection from './CharacterSelection/CharacterSelection';
+import Onboarding from './Onboarding/Onboarding';
 import GameScene from './GameScene/GameScene';
 import styles from './Game.module.css';
 import { STORAGE_KEY, ITEM_PICKUP_COMMANDS, SPECIAL_ACTIONS } from '../constants';
@@ -38,7 +39,11 @@ const Game: React.FC = () => {
   // Save game state to local storage whenever it changes
   useEffect(() => {
     // Don't save state during title screen or character selection
-    if (gameState.currentScene === 'title' || gameState.currentScene === 'start') {
+    if (
+      gameState.currentScene === 'title' ||
+      gameState.currentScene === 'start' ||
+      gameState.currentScene === 'onboarding'
+    ) {
       return;
     }
 
@@ -179,6 +184,16 @@ const Game: React.FC = () => {
         <StartScreen onStart={handleStart} hasSavedGame={!!gameState.savedScene} />
       ) : gameState.currentScene === 'start' ? (
         <CharacterSelection characters={typedStoryData.characters} onSelect={handleChoice} />
+      ) : gameState.currentScene === 'onboarding' && gameState.character ? (
+        <Onboarding
+          onComplete={() =>
+            setGameState((prev) => ({
+              ...prev,
+              currentScene: 'intro',
+              visitedScenes: new Set([...prev.visitedScenes, 'intro']),
+            }))
+          }
+        />
       ) : currentScene && gameState.character ? (
         <>
           <GameScene

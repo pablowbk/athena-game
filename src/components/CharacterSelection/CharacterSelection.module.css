@@ -165,3 +165,30 @@
   top: calc(100% + 0.5rem);
   left: 0;
 }
+
+.skipTutorial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 1.75rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.skipTutorial input {
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--border-color);
+  cursor: pointer;
+}
+
+.skipTutorial span {
+  color: var(--text-color);
+  text-shadow: 0 0 3px var(--glow-color);
+}

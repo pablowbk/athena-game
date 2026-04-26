@@ -16,6 +16,28 @@ export const translations = {
     yourName: 'Your name',
     yourName_error: 'Please enter a name.',
     defaultPlayerName: 'Player',
+    skipTutorial: 'I already know the basics — skip the onboarding',
+
+    onboarding: {
+      progressLabel: 'Onboarding step',
+      step1Title: 'How the adventure works',
+      step1a:
+        'The story unfolds in scenes. Sometimes you pick an option from the text; other times you type what you want to do in your own words.',
+      step1b: 'Your character and the items you collect can open different paths. Read carefully and experiment.',
+      step2Title: 'The command prompt',
+      step2a:
+        'At the bottom of the screen you will see a prompt asking what you want to do. Type a short command and press Enter to act.',
+      step2b: "If the game does not understand, try rephrasing or type 'help' to see example commands.",
+      step2c: 'Commands like examine, take, use, and attack often work, and synonyms are accepted in many places.',
+      step3Title: 'Inventory and progress',
+      step3a: 'You can type inventory or inv to review what items you are carrying.',
+      step3b:
+        'Your progress will be saved whenever you advance to the next scene, in case you want to resume your adventure later.',
+      step3c: 'It is time to begin. May Athena guide you on your journey.',
+      next: 'Next',
+      back: 'Back',
+      begin: 'Begin adventure',
+    },
 
     // Characters
     wizard: {
@@ -322,6 +344,29 @@ export const translations = {
     yourName: 'Tu nombre',
     yourName_error: 'Debes ingresar un nombre.',
     defaultPlayerName: 'Jugador',
+    skipTutorial: 'Ya conozco lo básico — omitir la introducción',
+
+    onboarding: {
+      progressLabel: 'Paso de introducción',
+      step1Title: 'Cómo funciona la aventura',
+      step1a:
+        'La historia avanza por escenas. A veces eliges una opción en el texto; otras escribes libremente lo que quieres hacer.',
+      step1b: 'Tu personaje y los objetos que recoges pueden abrir caminos distintos. Lee con atención y prueba cosas.',
+      step2Title: 'El campo de comandos',
+      step2a:
+        'Abajo verás un campo que pregunta qué quieres hacer. Escribe un comando breve y pulsa Entrar para actuar.',
+      step2b:
+        "Si el juego no entiende, reformula o escribe 'ayuda' para ver ejemplos de comandos.",
+      step2c: 'Comandos como examinar, tomar, usar y atacar suelen funcionar; en muchos sitios se aceptan sinónimos.',
+      step3Title: 'Inventario y progreso',
+      step3a: 'Puedes escribir inventario o inv para repasar qué objetos llevas contigo.',
+      step3b:
+        'Tu progreso se guardará cada vez que avances a la siguiente escena, por si quieres reanudar tu aventura más tarde.',
+      step3c: 'Es hora de comenzar. Que Atenea te guíe en tu camino.',
+      next: 'Siguiente',
+      back: 'Atrás',
+      begin: 'Comenzar aventura',
+    },
 
     // Characters
     wizard: {
