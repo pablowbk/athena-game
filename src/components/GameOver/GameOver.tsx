@@ -6,9 +6,11 @@ interface GameOverProps {
   onRetry: () => void;
   /** Hydra myth failure: copy explains return to Athena's quest choice. */
   isHydraFailure?: boolean;
+  /** Clears all progress and returns to the title screen (confirm dialog in parent). */
+  onFullReset?: () => void;
 }
 
-export const GameOver: React.FC<GameOverProps> = ({ onRetry, isHydraFailure }) => {
+export const GameOver: React.FC<GameOverProps> = ({ onRetry, isHydraFailure, onFullReset }) => {
   const { t } = useLanguage();
 
   return (
@@ -17,9 +19,16 @@ export const GameOver: React.FC<GameOverProps> = ({ onRetry, isHydraFailure }) =
       <p className="game-over__message">
         {t(isHydraFailure ? 'gameOver.hydraFailureMessage' : 'gameOver.message')}
       </p>
-      <button className="game-over__button" onClick={onRetry}>
-        {t(isHydraFailure ? 'gameOver.tryAgainAthena' : 'gameOver.tryAgain')}
-      </button>
+      <div className="game-over__actions">
+        <button type="button" className="game-over__button" onClick={onRetry}>
+          {t(isHydraFailure ? 'gameOver.tryAgainAthena' : 'gameOver.tryAgain')}
+        </button>
+        {isHydraFailure && onFullReset ? (
+          <button type="button" className="game-over__button game-over__button--secondary" onClick={onFullReset}>
+            {t('gameOver.fullReset')}
+          </button>
+        ) : null}
+      </div>
     </div>
   );
 };

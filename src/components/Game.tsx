@@ -195,17 +195,24 @@ const Game: React.FC = () => {
 
   const getSceneText = () => {
     if (!currentScene) return '';
+    if (!('text' in currentScene) || !currentScene.text) {
+      return '';
+    }
+    const base = t(currentScene.text);
     if (
       'characterSpecificText' in currentScene &&
       currentScene.characterSpecificText &&
       gameState.character
     ) {
-      const specificText = currentScene.characterSpecificText[gameState.character.type];
-      if (specificText) {
-        return t(specificText);
+      const specificKey = currentScene.characterSpecificText[gameState.character.type];
+      if (specificKey) {
+        const extra = t(specificKey);
+        if (extra && extra !== specificKey) {
+          return base ? `${base}\n\n${extra}` : extra;
+        }
       }
     }
-    return t(currentScene.text);
+    return base;
   };
 
   return (
@@ -240,6 +247,7 @@ const Game: React.FC = () => {
             playerName={gameState.playerName}
             onReset={handleSoftReset}
             onHydraFailureRetry={handleHydraFailureRetry}
+            onFullReset={handleHardReset}
           />
         </>
       ) : null}

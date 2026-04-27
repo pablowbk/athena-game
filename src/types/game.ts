@@ -20,6 +20,7 @@ export interface GameOverScene {
   characterSpecificText?: Partial<Record<CharacterType, string>>;
 }
 
+/** Look-around text: i18n `scenes.<sceneId>.examine` and optional `examine_<character>`. */
 export interface TextInputScene {
   text: string;
   type: 'text_input';

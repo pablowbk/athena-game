@@ -1,6 +1,13 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { Scene, Character, Choice, TextInputScene, MultipleChoiceScene } from '../../types/game';
+import {
+  Scene,
+  Character,
+  Choice,
+  TextInputScene,
+  MultipleChoiceScene,
+  CharacterType,
+} from '../../types/game';
 import CharacterDetails from '../CharacterDetails/CharacterDetails';
 import { GameOver } from '../GameOver';
 import { HelpMenu } from '../HelpMenu';
@@ -16,8 +23,21 @@ import {
   HYDRA_VICTORY_KEYWORD_REQUIRED_ITEM,
   SCENE_HYDRA_DEFEAT_FINAL,
   SCENE_HYDRA_VICTORY,
+  isExamineSurroundingsCommand,
 } from '../../constants';
 import useAuxDisplay from '../../hooks/useAuxDisplay';
+
+function resolveExamineSurroundingsMessage(
+  t: (key: string) => string,
+  sceneId: string,
+  characterType: CharacterType
+): string {
+  const charKey = `scenes.${sceneId}.examine_${characterType}`;
+  if (t(charKey) !== charKey) return t(charKey);
+  const baseKey = `scenes.${sceneId}.examine`;
+  if (t(baseKey) !== baseKey) return t(baseKey);
+  return t('examineSurroundings.fallback');
+}
 
 interface GameSceneProps {
   scene: Scene;
@@ -32,6 +52,8 @@ interface GameSceneProps {
   onReset?: () => void;
   /** Return to Athena quest choice after Hydra game over (design: bad-ending recovery). */
   onHydraFailureRetry?: () => void;
+  /** Full reset to title (confirm in parent). Shown on Hydra final defeat. */
+  onFullReset?: () => void;
 }
 
 const GameScene: React.FC<GameSceneProps> = ({
@@ -44,10 +66,13 @@ const GameScene: React.FC<GameSceneProps> = ({
   playerName,
   onReset,
   onHydraFailureRetry,
+  onFullReset,
 }) => {
   const { t } = useLanguage();
   const [userInput, setUserInput] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  /** Shown inside the main scene panel (not below the prompt). */
+  const [examineSurroundingsDetail, setExamineSurroundingsDetail] = useState<string | null>(null);
   const [cursorOffset, setCursorOffset] = useState(0);
   const hiddenTextRef = useRef<HTMLDivElement>(null);
   const [fade, setFade] = useState(false);
@@ -66,6 +91,7 @@ const GameScene: React.FC<GameSceneProps> = ({
       toggleHelp();
       setUserInput('');
       setErrorMessage('');
+      setExamineSurroundingsDetail(null);
       return;
     }
 
@@ -73,12 +99,14 @@ const GameScene: React.FC<GameSceneProps> = ({
     if (INVENTORY_COMMANDS.includes(normalizedInput)) {
       toggleInventory();
       setUserInput('');
+      setExamineSurroundingsDetail(null);
       return;
     }
 
+    const textScene = scene as TextInputScene;
+
     // Story keywords first (tutorial "examinar pergamino", door, myth commands) so they are not
     // swallowed by generic inventory examine/use handlers when the item is not in inventory yet.
-    const textScene = scene as TextInputScene;
     for (const [keyword, nextScene] of Object.entries(textScene.keywords)) {
       if (!normalizedInput.includes(keyword)) continue;
 
@@ -87,6 +115,7 @@ const GameScene: React.FC<GameSceneProps> = ({
         if (!required || !inventory.includes(required)) {
           setErrorMessage('');
           hideAuxDisplay();
+          setExamineSurroundingsDetail(null);
           onChoice({ text: normalizedInput, nextScene: SCENE_HYDRA_DEFEAT_FINAL });
           setUserInput('');
           return;
@@ -95,7 +124,15 @@ const GameScene: React.FC<GameSceneProps> = ({
 
       setErrorMessage('');
       hideAuxDisplay();
+      setExamineSurroundingsDetail(null);
       onChoice({ text: normalizedInput, nextScene });
+      setUserInput('');
+      return;
+    }
+
+    if (isExamineSurroundingsCommand(normalizedInput)) {
+      setExamineSurroundingsDetail(resolveExamineSurroundingsMessage(t, sceneId, character.type));
+      setErrorMessage('');
       setUserInput('');
       return;
     }
@@ -109,10 +146,12 @@ const GameScene: React.FC<GameSceneProps> = ({
       );
 
       if (inventoryItem) {
+        setExamineSurroundingsDetail(null);
         setErrorMessage(t(`itemDescriptions.${inventoryItem}.examine`));
         setUserInput('');
         return;
       } else {
+        setExamineSurroundingsDetail(null);
         setErrorMessage(t('errorMessage'));
         setUserInput('');
         return;
@@ -133,6 +172,7 @@ const GameScene: React.FC<GameSceneProps> = ({
           itemRestrictions[inventoryItem as keyof typeof itemRestrictions] &&
           itemRestrictions[inventoryItem as keyof typeof itemRestrictions] !== character.type
         ) {
+          setExamineSurroundingsDetail(null);
           setErrorMessage(t(`itemDescriptions.${inventoryItem}.wrongCharacter`));
           setUserInput('');
           return;
@@ -146,6 +186,7 @@ const GameScene: React.FC<GameSceneProps> = ({
               if (!required || !inventory.includes(required)) {
                 setErrorMessage('');
                 hideAuxDisplay();
+                setExamineSurroundingsDetail(null);
                 onChoice({ text: normalizedInput, nextScene: SCENE_HYDRA_DEFEAT_FINAL });
                 setUserInput('');
                 return;
@@ -153,6 +194,7 @@ const GameScene: React.FC<GameSceneProps> = ({
             }
             setErrorMessage('');
             hideAuxDisplay();
+            setExamineSurroundingsDetail(null);
             onChoice({ text: normalizedInput, nextScene });
             setUserInput('');
             return;
@@ -160,12 +202,14 @@ const GameScene: React.FC<GameSceneProps> = ({
         }
 
         // If no specific scene interaction, show generic use message
+        setExamineSurroundingsDetail(null);
         setErrorMessage(t(`itemDescriptions.${inventoryItem}.canUse`));
         setUserInput('');
         return;
       }
     }
 
+    setExamineSurroundingsDetail(null);
     setErrorMessage(t('errorMessage'));
     setUserInput('');
   };
@@ -209,6 +253,12 @@ const GameScene: React.FC<GameSceneProps> = ({
     return () => setFade(false);
   }, [scene]);
 
+  useEffect(() => {
+    setUserInput('');
+    setErrorMessage('');
+    setExamineSurroundingsDetail(null);
+  }, [sceneId]);
+
   return (
     <>
       {/* Character Details */}
@@ -218,12 +268,16 @@ const GameScene: React.FC<GameSceneProps> = ({
 
       {/* GAMEOVER */}
       {'type' in scene && scene.type === 'game_over' && (
-        <GameOver onRetry={handleRetry} isHydraFailure={sceneId === SCENE_HYDRA_DEFEAT_FINAL} />
+        <GameOver
+          onRetry={handleRetry}
+          isHydraFailure={sceneId === SCENE_HYDRA_DEFEAT_FINAL}
+          onFullReset={sceneId === SCENE_HYDRA_DEFEAT_FINAL ? onFullReset : undefined}
+        />
       )}
 
       {/* Scene container */}
       <div className={`${styles.GameScene} ${fade ? 'fadeIn' : 'fadeOut'}`}>
-        <SceneText sceneText={sceneText} />
+        <SceneText sceneText={sceneText} examineDetail={examineSurroundingsDetail} />
 
         {'type' in scene && scene.type === 'text_input' ? (
           <PromptContainer

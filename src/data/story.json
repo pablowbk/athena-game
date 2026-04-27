@@ -7,7 +7,7 @@
     },
     "hero": {
       "type": "hero",
-      "description": "A brave warrior, strong in combat and natural leadership.",
+      "description": "A brave warrior, strong in combat and with a gift for leadership.",
       "specialAbility": "Can overcome physical challenges and inspire others"
     },
     "thief": {

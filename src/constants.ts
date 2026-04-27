@@ -71,6 +71,52 @@ export const INVENTORY_COMMANDS = [
   'mochila',
 ];
 
+/** Phrases that show `scenes.<sceneId>.examine` (and optional `examine_<character>`) without advancing. */
+const EXAMINE_SURROUNDINGS_EXACT = new Set([
+  'examine',
+  'examinar',
+  'look',
+  'look around',
+  'inspect',
+  'survey',
+  'scan',
+  'mirar',
+  'mirar alrededor',
+  'observar',
+  'examinar alrededores',
+  'inspeccionar',
+]);
+
+const EXAMINE_SURROUNDINGS_TARGETS = new Set([
+  'room',
+  'surroundings',
+  'area',
+  'chamber',
+  'place',
+  'around',
+  'alrededores',
+  'alrededor',
+  'habitacion',
+  'habitación',
+  'cámara',
+  'camara',
+  'sala',
+  'entorno',
+  'lugar',
+]);
+
+export function isExamineSurroundingsCommand(normalizedInput: string): boolean {
+  if (EXAMINE_SURROUNDINGS_EXACT.has(normalizedInput)) return true;
+  const parts = normalizedInput.split(/\s+/).filter(Boolean);
+  if (parts.length !== 2) return false;
+  const [verb, target] = parts;
+  if (!EXAMINE_SURROUNDINGS_TARGETS.has(target)) return false;
+  if (['examine', 'examinar', 'inspect', 'survey', 'scan'].includes(verb)) return true;
+  if (verb === 'look' && (target === 'around' || target === 'room')) return true;
+  if (verb === 'mirar' || verb === 'observar') return true;
+  return false;
+}
+
 export const SPECIAL_ACTIONS: Record<CharacterType, { command: string; item: string }> = {
   hero: { command: 'use sword', item: 'fire-sword' },
   wizard: { command: 'use staff', item: 'staff' },
